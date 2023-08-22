@@ -2,6 +2,7 @@
   "name": "@docmaps/ts-api-server/runtime",
   "version": "0.1.0",
   "description": "Node.js runtime for serving docmaps using other composed docmaps-related npm modules",
+  "type": "module",
   "main": "dist/index.js",
   "scripts": {
     "test": "ava",

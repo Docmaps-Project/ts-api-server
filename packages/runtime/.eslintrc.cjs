@@ -10,6 +10,7 @@ module.exports = {
   root: true,
   ignorePatterns: ['dist/'],
   rules: {
+    '@typescript-eslint/no-inferrable-types': false,
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
