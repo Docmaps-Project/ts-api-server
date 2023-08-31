@@ -20,7 +20,7 @@ export class SparqlFetchBackend implements SparqlProcessor {
     })
   }
 
-  triples(query: Construct|Describe): Promise<AsyncIterable<RDF.Quad>> {
+  triples(query: Construct | Describe): Promise<AsyncIterable<RDF.Quad>> {
     return this.fetcher.fetchTriples(this.endpoint, query.build())
   }
 
