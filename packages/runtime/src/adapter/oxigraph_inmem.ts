@@ -8,14 +8,16 @@ export class OxigraphInmemBackend implements SparqlProcessor {
   // inmem usage allows writes directly to memory, separate from
   // the query interface, if you have a handle to it.
   public store: oxigraph.Store
+  base: string
 
-  constructor() {
+  constructor(baseIRI: string) {
     this.store = new oxigraph.Store()
+    this.base = baseIRI
   }
 
   triples(query: Construct | Describe): Promise<AsyncIterable<Quad>> {
-    // oxigraph is not type-safe in its return here, but it guarantees Array of Quad in these two cases
-    const filteredStore = this.store.query(query.build()) as Quad[]
+    const qstr = query.build({ base: this.base })    // oxigraph is not type-safe in its return here, but it guarantees Array of Quad in these two cases
+    const filteredStore = this.store.query(qstr) as Quad[]
     return Promise.resolve(arrayToAsyncIterable(filteredStore))
   }
 }

@@ -5,6 +5,8 @@ import { SparqlAdapter } from '../src/adapter'
 import * as E from 'fp-ts/lib/Either'
 import { inspect } from 'util'
 
+const base = 'https://docmaps-project.github.io/ex/v1/'
+
 // Data from elife -- realistic example under test
 const data = `
 <https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v1/get-by-doi?preprint_doi=10.1101%2F2022.11.08.515698> <http://purl.org/dc/terms/created> "2022-11-28T11:30:05+00:00"^^<http://www.w3.org/2001/XMLSchema#date> .
@@ -124,12 +126,12 @@ _:b2 <http://purl.org/spar/pwo/hasPreviousStep> _:b1 .
 `
 
 test('constructs and extracts a realistic docmap from a sparql backend', async (t) => {
-  const backend = new OxigraphInmemBackend()
+  const backend = new OxigraphInmemBackend(base)
   const graph = oxigraph.defaultGraph()
   backend.store.load(
     data, // data
     'application/n-triples', // mime type
-    'https://docmaps-project.github.io/ex/v1/', // base
+    base,
     graph,
   )
 
