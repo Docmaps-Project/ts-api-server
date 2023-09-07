@@ -1,12 +1,9 @@
 import type * as RDF from '@rdfjs/types'
 import { CONSTRUCT, Construct, Describe } from '@tpluscode/sparql-builder'
-import { DESCRIBE } from '@tpluscode/sparql-builder'
 import { VALUES } from '@tpluscode/sparql-builder/expressions'
 import * as D from 'docmaps-sdk'
 import * as TE from 'fp-ts/lib/TaskEither'
 import n3 from 'n3'
-// import { prefixes } from '@zazuko/rdf-vocabularies'
-import namespace from '@rdfjs/namespace'
 import { collect } from 'streaming-iterables'
 import { pipe } from 'fp-ts/lib/pipeable'
 import factory from '@rdfjs/data-model'
@@ -20,29 +17,12 @@ import util from 'util'
 export interface SparqlProcessor {
   // truthy(query: string): Promise<boolean>
   triples(query: Construct | Describe): Promise<AsyncIterable<RDF.Quad>>
-  // bindings(query: string): Promise<AsyncIterable<{ [key: string]: RDF.Term }>> // TODO: confirm how to handle generics better here
+  // bindings(query: string): Promise<AsyncIterable<{ [key: string]: RDF.Term }>>
 }
 
-function FindDocmapQueryFlat(iri: string): Construct {
-  const subj = factory.namedNode(iri)
-  const values = [{ map: subj }]
-  return CONSTRUCT`
-    ?map ?p ?o
-  `.WHERE`
-    ${VALUES(...values)}
-    ?map ?p ?o
-  `
-}
 
 function FindDocmapQuery(iri: string): Construct | Describe {
   const subj = factory.namedNode(iri)
-
-  const dcterms = namespace('http://purl.org/dc/terms/')
-  const pwo = namespace('http://purl.org/spar/pwo/')
-  const fabio = namespace('http://purl.org/spar/fabio/')
-  const pso = namespace('http://purl.org/spar/pso/')
-  const pro = namespace('http://purl.org/spar/pro/')
-  const tx = namespace('http://www.ontologydesignpatterns.org/cp/owl/taskexecution.owl#')
 
   const values = [{ map: subj }]
 
@@ -50,10 +30,9 @@ function FindDocmapQuery(iri: string): Construct | Describe {
     ?s ?p ?o .
     ?map ?p0 ?o0 .
   `.WHERE`
-    ${VALUES(...values)}
-
     {
       SELECT DISTINCT ?s ?p ?o WHERE {
+        ${VALUES(...values)}
         ?map (!<>)+ ?s .
         ?s ?p ?o .
       }
@@ -61,6 +40,7 @@ function FindDocmapQuery(iri: string): Construct | Describe {
     UNION
     {
       SELECT DISTINCT ?map ?p0 ?o0 WHERE {
+        ${VALUES(...values)}
         ?map ?p0 ?o0 .
       }
     }
