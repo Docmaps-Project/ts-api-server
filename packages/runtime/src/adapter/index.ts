@@ -8,7 +8,7 @@ import { collect } from 'streaming-iterables'
 import { pipe } from 'fp-ts/lib/pipeable'
 import factory from '@rdfjs/data-model'
 import { Set } from 'immutable'
-import util from 'util'
+// import util from 'util'
 
 /* Inteface for an in-memory or over-the-web mechanism that accepts
  * SPARQL queries and returns triples.
@@ -16,7 +16,7 @@ import util from 'util'
  */
 export interface SparqlProcessor {
   // truthy(query: string): Promise<boolean>
-  triples(query: Construct | Describe): Promise<AsyncIterable<RDF.Quad>>
+  triples(query: Construct | Describe): TE.TaskEither<Error, AsyncIterable<RDF.Quad>>
   // bindings(query: string): Promise<AsyncIterable<{ [key: string]: RDF.Term }>>
 }
 
@@ -62,28 +62,16 @@ export class SparqlAdapter {
     const g = new D.TypedGraph()
 
     const program = pipe(
-      TE.tryCatch(
-        () =>
-          new Promise<Array<RDF.Quad>>(async (res, rej) => {
-            try {
-              const iter = await this.q.triples(query)
-              const quads = await collect(iter)
-              console.log(`${quads.length} quads;`)
-              const deduped = [...Set(quads)] //TODO: ineffective, because WASM implements this structure as just `{__wbg_ptr}`
-              console.log(`${deduped.length} unique.`)
-              console.log(util.inspect([deduped[0], deduped[1]], { depth: null }))
-              res(deduped)
-            } catch (e) {
-              rej(e)
-            }
-          }),
-        (reason) =>
-          new Error(`failed to create quads from iterator: ${reason}`, {
-            cause: reason,
-          }),
+      this.q.triples(query),
+      TE.chain((iter) =>
+        TE.tryCatch(
+          () => collect(iter),
+          (reason) => new Error(`failed to create quads from iterator: ${reason}`),
+        ),
       ),
       TE.map((quads: Array<RDF.Quad>) => {
-        return new n3.Store(quads).match()
+        const deduped = [...Set(quads)] //TODO: ineffective, because WASM implements this structure as just `{__wbg_ptr}`
+        return new n3.Store(deduped).match()
       }),
       TE.chain((stream: RDF.Stream) =>
         g.pickStreamWithCodec(D.DocmapNormalizedFrame, D.Docmap, stream),
