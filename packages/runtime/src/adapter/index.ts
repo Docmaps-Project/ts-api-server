@@ -20,7 +20,6 @@ export interface SparqlProcessor {
   // bindings(query: string): Promise<AsyncIterable<{ [key: string]: RDF.Term }>>
 }
 
-
 function FindDocmapQuery(iri: string): Construct | Describe {
   const subj = factory.namedNode(iri)
 
