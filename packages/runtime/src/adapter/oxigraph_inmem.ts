@@ -18,7 +18,7 @@ export class OxigraphInmemBackend implements SparqlProcessor {
 
   triples(query: Construct | Describe): TE.TaskEither<Error, AsyncIterable<Quad>> {
     const qstr = query.build({ base: this.base }) // oxigraph is not type-safe in its return here, but it guarantees Array of Quad in these two cases
-    console.log(qstr)
+    // console.log(qstr)
     const filteredStore = this.store.query(qstr) as Quad[]
     return TE.of(arrayToAsyncIterable(filteredStore))
   }

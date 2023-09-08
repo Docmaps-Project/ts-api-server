@@ -70,7 +70,9 @@ export class SparqlAdapter {
         ),
       ),
       TE.map((quads: Array<RDF.Quad>) => {
-        const deduped = [...Set(quads)] //TODO: ineffective, because WASM implements this structure as just `{__wbg_ptr}`
+        const deduped = [...Set(quads)] //TODO: ineffective, because WASM implements this structure as just `{__wbg_ptr}` which is always unique
+        // console.log(`${quads.length} quads;`)
+        // console.log(util.inspect([deduped[0], deduped[1]], { depth: null }))
         return new n3.Store(deduped).match()
       }),
       TE.chain((stream: RDF.Stream) =>
