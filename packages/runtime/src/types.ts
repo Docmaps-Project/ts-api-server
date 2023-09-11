@@ -1,3 +1,6 @@
+import * as D from 'docmaps-sdk'
+import * as TE from 'fp-ts/TaskEither'
+
 // TODO: use io-ts? this is only decodable by consumers...
 export type ApiInfo = {
   api_url: string
@@ -9,4 +12,9 @@ export type ApiInfo = {
   peers: {
     api_url: string
   }[]
+}
+
+// TODO is this the same as the Client?
+export interface BackendAdapter {
+  docmapWithIri(iri: string): TE.TaskEither<Error, D.DocmapT>
 }
