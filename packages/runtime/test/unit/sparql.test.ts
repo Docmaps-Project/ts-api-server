@@ -1,8 +1,8 @@
 import test from 'ava'
-import { SparqlAdapter } from '../src/adapter'
+import { SparqlAdapter } from '../../src/adapter'
 import * as E from 'fp-ts/lib/Either'
 import { inspect } from 'util'
-import * as fixtures from './__fixtures__/docmaps'
+import * as fixtures from '../__fixtures__/docmaps'
 
 test('constructs and extracts a realistic docmap from a sparql backend', async (t) => {
   const backend = fixtures.CreateDatastore()

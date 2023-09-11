@@ -1,5 +1,5 @@
 import test from 'ava'
-import { ApiInstance } from '../src/api'
+import { ApiInstance } from '../../src/api'
 
 test('info: default values', (t) => {
   const res = new ApiInstance(new URL('https://example.com')).get_info()

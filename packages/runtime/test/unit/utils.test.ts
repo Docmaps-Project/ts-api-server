@@ -1,5 +1,5 @@
 import test from 'ava'
-import * as util from '../src/utils'
+import * as util from '../../src/utils'
 
 test('arrayToAsyncIterable', async (t) => {
   const array = [1, 20, 300, 4]
