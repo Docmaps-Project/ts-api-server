@@ -2,6 +2,8 @@ import express from 'express'
 import { initServer, createExpressEndpoints } from '@ts-rest/express'
 import { contract } from '../contract'
 import { ApiInstance } from '../api'
+import { OxigraphInmemBackend } from '../adapter/oxigraph_inmem'
+import { SparqlAdapter } from '../adapter'
 
 function main() {
   const Config = {
@@ -11,7 +13,11 @@ function main() {
     },
   }
 
-  const api = new ApiInstance(new URL(Config.server.apiUrl))
+  const api = new ApiInstance(
+    //FIXME make this useable
+    new SparqlAdapter(new OxigraphInmemBackend(Config.server.apiUrl)),
+    new URL(Config.server.apiUrl),
+  )
 
   const app = express()
 
@@ -31,7 +37,7 @@ function main() {
     },
   })
 
-  // TODO: resolve this awkward use of typescript ignores. The only
+  // FIXME: resolve this awkward use of typescript ignores. The only
   // reason I am willing to do this temporarily:
   // - this function call doesn't affect any types as far as I can tell
   // - it seems related to known issues in Zod, dependency of ts-rest
