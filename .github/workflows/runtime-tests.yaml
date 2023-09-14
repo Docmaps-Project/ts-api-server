@@ -121,4 +121,4 @@ jobs:
       - name: Test
         run: |
           cd ${{env.PKG_DIR}} ;
-          pnpm test:integration ;
+          pnpm test:integration --timeout=30s ;
