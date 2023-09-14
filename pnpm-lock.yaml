@@ -31,7 +31,7 @@ importers:
       '@zazuko/rdf-vocabularies': ^2023.1.19
       ava: ^5.2.0
       commander: ^10.0.1
-      docmaps-sdk: ^0.11.1
+      docmaps-sdk: ^0.11.2
       eslint: ^8.39.0
       eslint-config-prettier: ^8.8.0
       eslint-plugin-prettier: ^4.2.1
@@ -58,7 +58,7 @@ importers:
       '@ts-rest/express': 3.30.2_zyc6q5gjcygqglrnp54e2cg6hq
       '@zazuko/rdf-vocabularies': 2023.1.19
       commander: 10.0.1
-      docmaps-sdk: 0.11.1
+      docmaps-sdk: 0.11.2
       express: 4.18.2
       fetch-sparql-endpoint: 4.0.0
       fp-ts: 2.16.1
@@ -2198,8 +2198,8 @@ packages:
     dependencies:
       path-type: 4.0.0
 
-  /docmaps-sdk/0.11.1:
-    resolution: {integrity: sha512-0JhsHyuMH9mayQvli0+mcvfk69HHF4fxwbwLiJ3e8MR1UlN1Ej/H+X0PO031rjc2D0O0f2JPhiU7nXC/0fyagQ==}
+  /docmaps-sdk/0.11.2:
+    resolution: {integrity: sha512-iKAdWWHW0aA+U759q8/di+7Ut27+lIP18yxfW2HPzBbUgq2AbqKzLCr7dAG1i3bFcOnCPJ2D0y//tGwGIJfbRQ==}
     dependencies:
       '@rdfjs/data-model': 2.0.1
       '@rdfjs/parser-n3': 2.0.1
