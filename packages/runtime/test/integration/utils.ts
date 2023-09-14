@@ -2,9 +2,12 @@ import { spawnSync } from 'child_process'
 import { readdirSync } from 'fs'
 import { join as fsjoin } from 'path'
 import { HttpServer } from '../../src'
+import { COUNT_TOTAL_TRIPLES_QUERY } from '../../src/sparql'
+
+const OXI_SPARQL_BACKEND_BASEURL = 'http://localhost:33078'
 
 const OXI_SPARQL_BACKEND_CONFIG = {
-  url: 'http://localhost:33078',
+  url: `${OXI_SPARQL_BACKEND_BASEURL}/query`,
 }
 
 function getProjectRoot(): string {
@@ -19,13 +22,13 @@ function ensureSparqlBackend(log: (s: string) => void) {
   const root = getProjectRoot()
   const spawnOpts = { cwd: root }
 
-  const checkIsUpProcess = spawnSync('curl', ['-k', `${OXI_SPARQL_BACKEND_CONFIG.url}`], spawnOpts)
+  const checkIsUpProcess = spawnSync('curl', ['-k', `${OXI_SPARQL_BACKEND_BASEURL}`], spawnOpts)
 
   if (0 != checkIsUpProcess.status) {
     log(
       `[setup] Didn't find sparql backend locally at ${JSON.stringify(
         OXI_SPARQL_BACKEND_CONFIG,
-      )}; response: ${checkIsUpProcess.stdout}`,
+      )}; response: ${checkIsUpProcess.stderr}`,
     )
     log('[setup] starting it now with docker...')
 
@@ -46,42 +49,71 @@ function ensureSparqlBackend(log: (s: string) => void) {
     }
     log('[setup] done starting docker.')
   } else {
+    log(`[setup] backend already found at ${OXI_SPARQL_BACKEND_BASEURL}; skipping docker`)
+  }
+
+  // NOTE: see if there is at least one known docmap. This is required  because idempotent upload of
+  // graphs with blank nodes is impossible. in test, we assume that if the dataset is nonempty,
+  // then no more uploads should occur. For more info,
+  //   see https://github.com/Docmaps-Project/rfcs/issues/2
+  const checkHasDataProcess = spawnSync(
+    'curl',
+    [
+      '-k',
+      `${OXI_SPARQL_BACKEND_CONFIG.url}?query=${encodeURIComponent(
+        COUNT_TOTAL_TRIPLES_QUERY.build(),
+      )}`,
+    ],
+    spawnOpts,
+  )
+
+  const foundTriplesCount = Number(
+    JSON.parse(checkHasDataProcess.stdout.toString()).results.bindings[0].n.value,
+  )
+
+  // ensure response contains at least 3 digits of counted triples
+  if (!(foundTriplesCount > 400)) {
     log(
-      `[setup] backend already found at ${JSON.stringify(
+      `[setup] Didn't find enough triples locally at ${JSON.stringify(
         OXI_SPARQL_BACKEND_CONFIG,
-      )}; skipping docker`,
+      )}; response: ${checkHasDataProcess.stdout}`,
+    )
+    log('[setup] uploading static assets as test dataset')
+
+    //  for all assets files:
+    const assetsPath = fsjoin(root, 'test', 'integration', 'assets')
+    const filesList = readdirSync(assetsPath, {
+      encoding: 'utf-8',
+      withFileTypes: true,
+    }).filter((n) => n.name.endsWith('.nt'))
+
+    const ulErrs = filesList.reduce<Error[]>((errs, dirent) => {
+      const p = spawnSync('curl', [
+        '-k',
+        '-X',
+        'POST',
+        '-H',
+        'Content-Type:application/n-triples',
+        '-T',
+        fsjoin(assetsPath, dirent.name),
+        `${OXI_SPARQL_BACKEND_BASEURL}/store?default`,
+      ])
+      if (0 != p.status) {
+        return [...errs, new Error(`failed to upload ${dirent.name}: "${p.stdout}"`)]
+      }
+      return errs
+    }, [] as Error[])
+
+    if (ulErrs.length > 0) {
+      throw ulErrs
+    }
+
+    log(`[setup] finished uploading ${filesList.length} test triples files`)
+  } else {
+    log(
+      `[setup] docmaps with ${foundTriplesCount} triples already found at ${OXI_SPARQL_BACKEND_BASEURL}; skipping upload`,
     )
   }
-
-  //  for all assets files:
-  const assetsPath = fsjoin(root, 'test', 'integration', 'assets')
-  const filesList = readdirSync(assetsPath, {
-    encoding: 'utf-8',
-    withFileTypes: true,
-  }).filter((n) => n.name.endsWith('.nt'))
-
-  const ulErrs = filesList.reduce<Error[]>((errs, dirent) => {
-    const p = spawnSync('curl', [
-      '-k',
-      '-X',
-      'POST',
-      '-H',
-      'Content-Type:application/n-triples',
-      '-T',
-      fsjoin(assetsPath, dirent.name),
-      `${OXI_SPARQL_BACKEND_CONFIG.url}/store?default`,
-    ])
-    if (0 != p.status) {
-      return [...errs, new Error(`failed to upload ${dirent.name}: "${p.stdout}"`)]
-    }
-    return errs
-  }, [] as Error[])
-
-  if (ulErrs.length > 0) {
-    throw ulErrs
-  }
-
-  log('[setup] finished uploading all test triples')
 }
 
 async function setupServer(): Promise<HttpServer> {
@@ -89,6 +121,10 @@ async function setupServer(): Promise<HttpServer> {
     server: {
       port: 33033,
       apiUrl: 'http://localhost:33033/docmaps/v1/',
+    },
+    backend: {
+      type: 'sparqlEndpoint',
+      sparqlEndpoint: OXI_SPARQL_BACKEND_CONFIG,
     },
   })
 

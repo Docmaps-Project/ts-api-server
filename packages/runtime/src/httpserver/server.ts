@@ -5,14 +5,29 @@ import { initServer, createExpressEndpoints } from '@ts-rest/express'
 import { contract } from '../contract'
 import { ApiInstance } from '../api'
 import { OxigraphInmemBackend } from '../adapter/oxigraph_inmem'
-import { SparqlAdapter } from '../adapter'
+import { SparqlAdapter, SparqlFetchBackend } from '../adapter'
 import { isLeft } from 'fp-ts/lib/Either'
+import { inspect } from 'util'
+import { BackendAdapter } from '../types'
 
 export type ServerConfig = {
   server: {
     port: number
     apiUrl: string
   }
+  backend:
+    | {
+        type: 'sparqlEndpoint'
+        sparqlEndpoint: {
+          url: string
+        }
+      }
+    | {
+        type: 'memory'
+        memory: {
+          baseIri: string
+        }
+      }
 }
 
 // TODO: rename?
@@ -25,11 +40,17 @@ export class HttpServer {
   constructor(config: ServerConfig) {
     this.config = config
 
-    this.api = new ApiInstance(
-      //FIXME make this useable
-      new SparqlAdapter(new OxigraphInmemBackend(config.server.apiUrl)),
-      new URL(config.server.apiUrl),
-    )
+    let adapter: BackendAdapter
+    switch (config.backend.type) {
+      case 'memory':
+        adapter = new SparqlAdapter(new OxigraphInmemBackend(config.backend.memory.baseIri))
+        break
+      case 'sparqlEndpoint':
+        adapter = new SparqlAdapter(new SparqlFetchBackend(config.backend.sparqlEndpoint.url))
+        break
+    }
+
+    this.api = new ApiInstance(adapter, new URL(config.server.apiUrl))
 
     this.app = express()
 
@@ -48,7 +69,8 @@ export class HttpServer {
         }
       },
       getDocmapById: async (req) => {
-        const result = await this.api.get_docmap_by_id(req.params.id)()
+        const iri = decodeURIComponent(req.params.id)
+        const result = await this.api.get_docmap_by_id(iri)()
 
         if (isLeft(result)) {
           return {
