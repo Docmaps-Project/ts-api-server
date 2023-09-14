@@ -7,7 +7,6 @@ import { ApiInstance } from '../api'
 import { OxigraphInmemBackend } from '../adapter/oxigraph_inmem'
 import { SparqlAdapter, SparqlFetchBackend } from '../adapter'
 import { isLeft } from 'fp-ts/lib/Either'
-import { inspect } from 'util'
 import { BackendAdapter } from '../types'
 
 export type ServerConfig = {
