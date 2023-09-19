@@ -8,8 +8,8 @@ import {customElement, property} from 'lit/decorators.js';
  * @slot - This element has a slot
  * @csspart button - The button
  */
-@customElement('docmap-widget')
-export class DocmapWidget extends LitElement {
+@customElement('docmaps-widget')
+export class DocmapsWidget extends LitElement {
   static override styles = css`
     :host {
       display: block;
@@ -23,7 +23,7 @@ export class DocmapWidget extends LitElement {
    * The name to say "Hello" to.
    */
   @property()
-  name = 'World';
+  doi = 'N/A';
 
   /**
    * The number of times the button has been clicked.
@@ -33,7 +33,7 @@ export class DocmapWidget extends LitElement {
 
   override render() {
     return html`
-      <h1>${this.sayHello(this.name)}!</h1>
+      <h2>${this.sayHello(this.doi)}</h2>
       <button @click=${this._onClick} part="button">
         Click Count: ${this.count}
       </button>
@@ -51,12 +51,12 @@ export class DocmapWidget extends LitElement {
    * @param name The name to say "Hello" to
    */
   sayHello(name: string): string {
-    return `Hello, ${name}`;
+    return `Docmap for DOI ${name}`;
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'docmap-widget': DocmapWidget;
+    'docmaps-widget': DocmapsWidget;
   }
 }
