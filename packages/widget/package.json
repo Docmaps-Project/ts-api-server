@@ -1,0 +1,81 @@
+{
+  "name": "@docmaps/ts-api-server/widget",
+  "version": "0.1.0",
+  "description": "POC Widget for interacting with the Docmaps ts-api-server",
+  "type": "module",
+  "main": "dist/httpserver/main.js",
+  "scripts": {
+    "test": "ava",
+    "clean": "rm -rf dist/",
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint --fix .",
+    "prepare": "tsc --declaration",
+    "start": "tsx dist/httpserver/main.js",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "andrew github.com/andrewedstrom",
+  "license": "ISC",
+  "files": [
+    "dist/",
+    "README.md",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "dependencies": {
+    "@commander-js/extra-typings": "^10.0.3",
+    "@rdfjs/data-model": "^2.0.1",
+    "@rdfjs/namespace": "^2.0.0",
+    "@tpluscode/sparql-builder": "^0.3.31",
+    "@ts-rest/core": "^3.30.2",
+    "@ts-rest/express": "^3.30.2",
+    "@zazuko/rdf-vocabularies": "^2023.1.19",
+    "commander": "^10.0.1",
+    "docmaps-sdk": "^0.11.2",
+    "express": "^4.18.2",
+    "fetch-sparql-endpoint": "^4.0.0",
+    "fp-ts": "^2.14.0",
+    "immutable": "5.0.0-beta.4",
+    "isomorphic-fetch": "^3.0.0",
+    "n3": "^1.17.1",
+    "oxigraph": "^0.3.19",
+    "streaming-iterables": "^8.0.0"
+  },
+  "devDependencies": {
+    "@rdfjs/types": "^1.1.0",
+    "@tsconfig/node-lts-strictest-esm": "^18.12.1",
+    "@types/express": "^4.17.17",
+    "@types/isomorphic-fetch": "^0.0.36",
+    "@types/n3": "^1.16.0",
+    "@types/node": "^18.16.2",
+    "@types/rdfjs__data-model": "^2.0.4",
+    "@types/rdfjs__namespace": "^2.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.1",
+    "ava": "^5.2.0",
+    "eslint": "^8.39.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.8",
+    "ts-mockito": "^2.6.1",
+    "ts-node": "^10.9.1",
+    "tsx": "^3.12.7",
+    "typescript": "^4.9.5",
+    "zod": "^3.22.2"
+  },
+  "ava": {
+    "extensions": {
+      "ts": "module"
+    },
+    "nodeArguments": [
+      "--loader=ts-node/esm",
+      "--experimental-specifier-resolution=node"
+    ],
+    "files": [
+      "**/*.test.ts"
+    ]
+  },
+  "engines": {
+    "node": ">=18.14.0"
+  }
+}
