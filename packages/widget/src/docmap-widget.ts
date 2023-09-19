@@ -8,8 +8,8 @@ import {customElement, property} from 'lit/decorators.js';
  * @slot - This element has a slot
  * @csspart button - The button
  */
-@customElement('my-element')
-export class MyElement extends LitElement {
+@customElement('docmap-widget')
+export class DocmapWidget extends LitElement {
   static override styles = css`
     :host {
       display: block;
@@ -47,7 +47,7 @@ export class MyElement extends LitElement {
   }
 
   /**
-   * Formats a greeting
+   * Formats a greeting|
    * @param name The name to say "Hello" to
    */
   sayHello(name: string): string {
@@ -57,6 +57,6 @@ export class MyElement extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'my-element': MyElement;
+    'docmap-widget': DocmapWidget;
   }
 }
