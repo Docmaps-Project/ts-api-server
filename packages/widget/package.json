@@ -40,6 +40,7 @@
   ],
   "author": "andrewedstrom",
   "dependencies": {
+    "@lit-labs/task": "^3.0.2",
     "@lit/reactive-element": "^1.6.3",
     "lit": "^2.2.4",
     "lit-element": "^3.3.3",
