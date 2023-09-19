@@ -12,5 +12,8 @@
   "dependencies": {
     "@manypkg/cli": "^0.21.0",
     "multi-semantic-release": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=18.4.0"
   }
 }
