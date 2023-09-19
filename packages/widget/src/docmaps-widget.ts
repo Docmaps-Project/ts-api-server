@@ -19,17 +19,14 @@ export class DocmapsWidget extends LitElement {
     }
   `;
 
-  /**
-   * The name to say "Hello" to.
-   */
   @property()
-  doi = 'N/A';
+  doi: string = 'N/A';
 
   /**
    * The number of times the button has been clicked.
    */
   @property({type: Number})
-  count = 0;
+  count: number = 0;
 
   override render() {
     return html`
