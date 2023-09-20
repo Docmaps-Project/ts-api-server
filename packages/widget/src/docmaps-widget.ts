@@ -19,6 +19,28 @@ export class DocmapsWidget extends LitElement {
       border: solid 1px gray;
       padding: 16px;
     }
+
+    details {
+      border: 1px solid #aaa;
+      border-radius: 4px;
+      padding: 0.5em 0.5em 0;
+    }
+
+    summary {
+      font-weight: bold;
+      margin: -0.5em -0.5em 0;
+      padding: 0.5em;
+    }
+
+    details[open] {
+      padding: 0.5em;
+    }
+
+    details[open] summary {
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+    }
+
   `;
 
   @property()
@@ -35,7 +57,12 @@ export class DocmapsWidget extends LitElement {
   renderAfterLoad(docmapArray: any[]) {
     const docmap = docmapArray[0];
     const result = JSON.stringify(docmap, null, 2);
-    return html`<pre>${result}</pre>`
+    return html`
+      <details open>
+        <summary>Raw Docmap</summary>
+        <pre>${result}</pre>
+      </details>
+    `
   };
 
   errorRender(err: unknown){
@@ -45,8 +72,6 @@ export class DocmapsWidget extends LitElement {
   override render() {
     return html`
       <h2>DOI: ${this.doi}</h2>
-      
-      <h3>Raw docmap</h3>
       
       ${this.#fetchingController.render({
         initial: this.initialRender,
