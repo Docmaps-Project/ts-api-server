@@ -34,22 +34,36 @@ export function MakeCli() {
     .description('start the server')
     .addOption(
       new Option('--backendType <backendType>', `the plugin source name`)
+        .env('DM_BACKEND_TYPE')
         .preset(BACKEND_TYPES[0])
         .choices(BACKEND_TYPES)
         .makeOptionMandatory(),
     )
-    .requiredOption('--server.port <port>', 'port to listen on', Number)
-    .requiredOption(
-      '--server.apiUrl <url>',
-      'the URL that this server can be reached at (for advertising purposes only)',
+    .addOption(
+      new Option('--server.port <port>', `port to listen on`)
+        .env('DM_SERVER_PORT')
+        .argParser(Number)
+        .makeOptionMandatory(),
     )
-    .option(
-      '--backend.sparqlEndpoint.url <url>',
-      'url including scheme, host, port where the sparql endpoint can be reached',
+    .addOption(
+      new Option(
+        '--server.apiUrl <url>',
+        'the URL that this server can be reached at (for advertising purposes only)',
+      )
+        .env('DM_SERVER_API_URL')
+        .makeOptionMandatory(),
     )
-    .option(
-      '--backend.memory.baseIri <iri>',
-      'IRI to use as the base/prefix IRI for the in memory triplestore',
+    .addOption(
+      new Option(
+        '--backend.sparqlEndpoint.url <url>',
+        'url including scheme, host, port where the sparql endpoint can be reached',
+      ).env('DM_BACKEND_SPARQL_ENDPOINT_URL'),
+    )
+    .addOption(
+      new Option(
+        '--backend.memory.baseIri <iri>',
+        'IRI to use as the base/prefix IRI for the in memory triplestore',
+      ).env('DM_BACKEND_MEMORY_BASE_IRI'),
     )
     .action(async (options) => {
       const serveConfig = {
