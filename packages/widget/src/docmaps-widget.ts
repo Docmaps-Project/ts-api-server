@@ -1,5 +1,6 @@
 import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
+import { DocmapFetchingController } from "./docmap-fetching-controller";
 
 /**
  * An example element.
@@ -10,45 +11,50 @@ import {customElement, property} from 'lit/decorators.js';
  */
 @customElement('docmaps-widget')
 export class DocmapsWidget extends LitElement {
+  #fetchingController: DocmapFetchingController = new DocmapFetchingController(this);
+
   static override styles = css`
     :host {
       display: block;
       border: solid 1px gray;
       padding: 16px;
-      max-width: 800px;
     }
   `;
 
   @property()
   doi: string = 'N/A';
 
-  /**
-   * The number of times the button has been clicked.
-   */
-  @property({type: Number})
-  count: number = 0;
+  initialRender(){
+    return html`<p>Haven't even tried to fetch yet tbh</p>`
+  }
+
+  pendingRender(){
+    return html`<p>Loading...</p>`
+  }
+
+  renderAfterLoad(docmapArray: any[]) {
+    const docmap = docmapArray[0];
+    const result = JSON.stringify(docmap, null, 2);
+    return html`<pre>${result}</pre>`
+  };
+
+  errorRender(err: unknown){
+    return html`<p>Couldn't fetch docmap: ${err}</p>`
+  }
 
   override render() {
     return html`
-      <h2>${this.sayHello(this.doi)}</h2>
-      <button @click=${this._onClick} part="button">
-        Click Count: ${this.count}
-      </button>
-      <slot></slot>
-    `;
-  }
-
-  private _onClick() {
-    this.count++;
-    this.dispatchEvent(new CustomEvent('count-changed'));
-  }
-
-  /**
-   * Formats a greeting|
-   * @param name The name to say "Hello" to
-   */
-  sayHello(name: string): string {
-    return `Docmap for DOI ${name}`;
+      <h2>DOI: ${this.doi}</h2>
+      
+      <h3>Raw docmap</h3>
+      
+      ${this.#fetchingController.render({
+        initial: this.initialRender,
+        pending: this.pendingRender,
+        complete: this.renderAfterLoad,
+        error: this.errorRender,
+      })}
+    `
   }
 }
 
