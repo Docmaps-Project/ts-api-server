@@ -26,7 +26,7 @@
     "tsconfig.json"
   ],
   "dependencies": {
-    "@commander-js/extra-typings": "^10.0.3",
+    "@commander-js/extra-typings": "^11.0.0",
     "@rdfjs/data-model": "^2.0.1",
     "@rdfjs/namespace": "^2.0.0",
     "@tpluscode/sparql-builder": "^0.3.31",
