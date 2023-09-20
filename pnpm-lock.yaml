@@ -30,7 +30,7 @@ importers:
       '@typescript-eslint/parser': ^5.59.1
       '@zazuko/rdf-vocabularies': ^2023.1.19
       ava: ^5.2.0
-      commander: ^10.0.1
+      commander: ^11.0.0
       docmaps-sdk: ^0.11.2
       eslint: ^8.39.0
       eslint-config-prettier: ^8.8.0
@@ -50,14 +50,14 @@ importers:
       typescript: ^4.9.5
       zod: ^3.22.2
     dependencies:
-      '@commander-js/extra-typings': 10.0.3_commander@10.0.1
+      '@commander-js/extra-typings': 10.0.3_commander@11.0.0
       '@rdfjs/data-model': 2.0.1
       '@rdfjs/namespace': 2.0.0
       '@tpluscode/sparql-builder': 0.3.31_7cw5jfsc2ihpt7aatx7op3fmsq
       '@ts-rest/core': 3.30.2_zod@3.22.2
       '@ts-rest/express': 3.30.2_zyc6q5gjcygqglrnp54e2cg6hq
       '@zazuko/rdf-vocabularies': 2023.1.19
-      commander: 10.0.1
+      commander: 11.0.0
       docmaps-sdk: 0.11.2
       express: 4.18.2
       fetch-sparql-endpoint: 4.0.0
@@ -142,12 +142,12 @@ packages:
     dev: false
     optional: true
 
-  /@commander-js/extra-typings/10.0.3_commander@10.0.1:
+  /@commander-js/extra-typings/10.0.3_commander@11.0.0:
     resolution: {integrity: sha512-OIw28QV/GlP8k0B5CJTRsl8IyNvd0R8C8rfo54Yz9P388vCNDgdNrFlKxZTGqps+5j6lSw3Ss9JTQwcur1w1oA==}
     peerDependencies:
       commander: 10.0.x
     dependencies:
-      commander: 10.0.1
+      commander: 11.0.0
     dev: false
 
   /@cspotcode/source-map-support/0.8.1:
@@ -1904,9 +1904,9 @@ packages:
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
 
-  /commander/10.0.1:
-    resolution: {integrity: sha512-y4Mg2tXshplEbSGzx7amzPwKKOCGuoSRP/CjEdwwk0FOGlUbq6lKuoyDZTNZkmxHdJtp54hdfY/JUrdL7Xfdug==}
-    engines: {node: '>=14'}
+  /commander/11.0.0:
+    resolution: {integrity: sha512-9HMlXtt/BNoYr8ooyjjNRdIilOTkVJXB+GhxMTtOKwk0R4j4lS4NpjuqmRxroBfnfTSHQIHQB7wryHhXarNjmQ==}
+    engines: {node: '>=16'}
     dev: false
 
   /commander/5.1.0:
