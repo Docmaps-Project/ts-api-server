@@ -4,6 +4,8 @@ services:
     image: ghcr.io/oxigraph/oxigraph
     ports:
       - "33378:7878"
+    volumes:
+      - "./tmp/oxigraph_data:/data"
   server:
     build:
       context: .
