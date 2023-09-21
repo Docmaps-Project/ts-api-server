@@ -3,8 +3,10 @@ import SerializerNtriples from "@rdfjs/serializer-ntriples";
 import util from "util";
 import axios from "axios";
 
+const OXIGRAPH_STORE_URL= process.env['DM_DEV_OXIGRAPH_URL'] || 'http://localhost:33378'
+
 async function uploadNtriples(nt: Buffer): Promise<any> {
-  return axios.post("http://localhost:33378/store?default", nt, {
+  return axios.post(`${OXIGRAPH_STORE_URL}/store?default`, nt, {
     headers: {
       "Content-Type": "application/n-triples",
       "Content-Length": Buffer.byteLength(nt),

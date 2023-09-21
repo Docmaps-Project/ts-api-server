@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "clean": "manypkg exec $npm_execpath run clean && rm -rf node_modules",
+    "compose:repave": "rm -rf tmp/oxigraph_data/*",
+    "compose:up": "docker compose -f $INIT_CWD/docker-compose.local.yml up",
     "test:packages": "manypkg exec $npm_execpath test",
     "test:all": "$npm_execpath run test && $npm_execpath run test:packages"
   },
