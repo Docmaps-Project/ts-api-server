@@ -40,7 +40,6 @@ export class DocmapsWidget extends LitElement {
       border-bottom: 1px solid #aaa;
       margin-bottom: 0.5em;
     }
-
   `;
 
   @property()
