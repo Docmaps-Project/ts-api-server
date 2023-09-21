@@ -74,10 +74,10 @@ export class DocmapsWidget extends LitElement {
       <h2>DOI: ${this.doi}</h2>
       
       ${this.#fetchingController.render({
-        initial: this.initialRender,
-        pending: this.pendingRender,
-        complete: this.renderAfterLoad,
-        error: this.errorRender,
+        initial: this.initialRender.bind(this),
+        pending: this.pendingRender.bind(this),
+        complete: this.renderAfterLoad.bind(this),
+        error: this.errorRender.bind(this),
       })}
     `
   }
