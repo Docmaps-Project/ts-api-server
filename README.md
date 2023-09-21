@@ -4,7 +4,7 @@ Typescript reference implementation of Docmaps Project RFC#001 API Server Intero
 
 ## Package directory
 
-**`packages/runtime/`: the API server code.
+**`packages/runtime/`:** the API server code.
 
 ## Development
 
