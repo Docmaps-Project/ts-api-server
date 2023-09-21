@@ -3,7 +3,8 @@ import SerializerNtriples from "@rdfjs/serializer-ntriples";
 import util from "util";
 import axios from "axios";
 
-const OXIGRAPH_STORE_URL= process.env['DM_DEV_OXIGRAPH_URL'] || 'http://localhost:33378'
+const OXIGRAPH_STORE_URL =
+  process.env["DM_DEV_OXIGRAPH_URL"] || "http://localhost:33378";
 
 async function uploadNtriples(nt: Buffer): Promise<any> {
   return axios.post(`${OXIGRAPH_STORE_URL}/store?default`, nt, {
@@ -14,7 +15,7 @@ async function uploadNtriples(nt: Buffer): Promise<any> {
   });
 }
 
-const main = new Promise<string>((res, _rej) => {
+const parseAndUpload = new Promise<string>((res, _rej) => {
   const jsonld = new JsonLdParser();
   const nt = new SerializerNtriples();
   let nt_str = "";
@@ -34,7 +35,7 @@ const main = new Promise<string>((res, _rej) => {
   });
 });
 
-const result = await main.then((str) => {
+const result = await parseAndUpload.then((str) => {
   return uploadNtriples(Buffer.from(str));
 });
 
@@ -48,4 +49,3 @@ console.log(
     { depth: 1 }
   )}`
 );
-
