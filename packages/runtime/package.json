@@ -12,9 +12,8 @@
     "test:unit": "ava test/unit/",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint --fix .",
-    "prepare": "tsc --declaration",
     "start": "tsx dist/httpserver/main.js",
-    "build": "tsc"
+    "build": "tsc --declaration"
   },
   "keywords": [],
   "author": "eve github.com/ships",
@@ -32,6 +31,7 @@
     "@tpluscode/sparql-builder": "^0.3.31",
     "@ts-rest/core": "^3.30.2",
     "@ts-rest/express": "^3.30.2",
+    "@tsconfig/node-lts-strictest-esm": "^18.12.1",
     "@zazuko/rdf-vocabularies": "^2023.1.19",
     "commander": "^11.0.0",
     "docmaps-sdk": "^0.11.2",
@@ -42,11 +42,11 @@
     "isomorphic-fetch": "^3.0.0",
     "n3": "^1.17.1",
     "oxigraph": "^0.3.19",
-    "streaming-iterables": "^8.0.0"
+    "streaming-iterables": "^8.0.0",
+    "tsx": "^3.12.7"
   },
   "devDependencies": {
     "@rdfjs/types": "^1.1.0",
-    "@tsconfig/node-lts-strictest-esm": "^18.12.1",
     "@types/express": "^4.17.17",
     "@types/isomorphic-fetch": "^0.0.36",
     "@types/n3": "^1.16.0",
@@ -62,7 +62,6 @@
     "prettier": "^2.8.8",
     "ts-mockito": "^2.6.1",
     "ts-node": "^10.9.1",
-    "tsx": "^3.12.7",
     "typescript": "^4.9.5",
     "zod": "^3.22.2"
   },
