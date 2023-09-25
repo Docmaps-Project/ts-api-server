@@ -163,8 +163,8 @@ importers:
         specifier: ^1.6.3
         version: 1.6.3
       docmaps-sdk:
-        specifier: ^0.11.2
-        version: 0.11.2
+        specifier: ^0.11.3
+        version: 0.11.3
       lit:
         specifier: ^2.2.4
         version: 2.8.0
@@ -5400,6 +5400,24 @@ packages:
 
   /docmaps-sdk@0.11.2:
     resolution: {integrity: sha512-iKAdWWHW0aA+U759q8/di+7Ut27+lIP18yxfW2HPzBbUgq2AbqKzLCr7dAG1i3bFcOnCPJ2D0y//tGwGIJfbRQ==}
+    dependencies:
+      '@rdfjs/data-model': 2.0.1
+      '@rdfjs/parser-n3': 2.0.1
+      '@rdfjs/serializer-jsonld-ext': 4.0.0
+      fp-ts: 2.16.1
+      io-ts: 2.2.20(fp-ts@2.16.1)
+      io-ts-types: 0.5.19(fp-ts@2.16.1)(io-ts@2.2.20)(monocle-ts@2.3.13)(newtype-ts@0.3.5)
+      monocle-ts: 2.3.13(fp-ts@2.16.1)
+      newtype-ts: 0.3.5(fp-ts@2.16.1)(monocle-ts@2.3.13)
+      rdf-ext: 2.2.0
+      readable-stream: 4.4.2
+    transitivePeerDependencies:
+      - web-streams-polyfill
+    dev: false
+
+  /docmaps-sdk@0.11.3:
+    resolution: {integrity: sha512-SmZBAfdeI2sWCrrc5miP9zdHde4vC+7jjAaTIKQL3sgl1vWieDGQdElKpDitqL8jJjK/e/9bMXpfWZ8Q+XX86Q==}
+    engines: {node: '>=18.14.0'}
     dependencies:
       '@rdfjs/data-model': 2.0.1
       '@rdfjs/parser-n3': 2.0.1
