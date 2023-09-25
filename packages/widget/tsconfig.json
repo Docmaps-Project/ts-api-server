@@ -1,0 +1,28 @@
+{
+  "extends": "@tsconfig/node-lts-strictest-esm/tsconfig.json",
+  "noErrorTruncation": true,
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "noErrorTruncation": true,
+    "module": "esnext",
+    "target": "ES2020",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "importsNotUsedAsValues": "remove",
+    "outDir": "./dist",
+    "sourceMap": true,
+    "noUnusedLocals": false,
+    "removeComments": true,
+    "declaration": true,
+    "lib": [
+      "DOM"
+    ]
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
+}
