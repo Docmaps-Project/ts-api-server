@@ -5,7 +5,8 @@
   "type": "module",
   "main": "dist/docmaps-widget.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "build:watch": "tsc --watch"
   },
   "keywords": [],
   "author": "andrewedstrom github.com/andrewedstrom",

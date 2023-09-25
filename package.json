@@ -13,7 +13,7 @@
   "author": "early evening @ships",
   "license": "MTI",
   "engines": {
-    "node": ">=18.4.0"
+    "node": ">=18.18.0"
   },
   "devDependencies": {
     "@manypkg/cli": "^0.21.0",
