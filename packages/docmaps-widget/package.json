@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lit-labs/task": "^3.0.2",
+    "docmaps-sdk": "^0.11.2",
     "lit": "^2.7.6"
   },
   "devDependencies": {

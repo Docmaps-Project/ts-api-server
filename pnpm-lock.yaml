@@ -41,6 +41,12 @@ importers:
 
   packages/docmaps-widget:
     dependencies:
+      '@lit-labs/task':
+        specifier: ^3.0.2
+        version: 3.0.2
+      docmaps-sdk:
+        specifier: ^0.11.2
+        version: 0.11.2
       lit:
         specifier: ^2.7.6
         version: 2.8.0
@@ -708,6 +714,12 @@ packages:
 
   /@lit-labs/ssr-dom-shim@1.1.1:
     resolution: {integrity: sha512-kXOeFbfCm4fFf2A3WwVEeQj55tMZa8c8/f9AKHMobQMkzNUfUj+antR3fRPaZJawsa1aZiP/Da3ndpZrwEe4rQ==}
+    dev: false
+
+  /@lit-labs/task@3.0.2:
+    resolution: {integrity: sha512-X6d+KWZR3q1ZrXs/auM5PbZcW3B5RlpU4gqk/upstwTZM6JN19P6o9Qgo+qjovIDsUZsYnlGQqtdPBwPrKzLUA==}
+    dependencies:
+      '@lit/reactive-element': 1.6.3
     dev: false
 
   /@lit/reactive-element@1.6.3:
