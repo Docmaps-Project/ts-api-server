@@ -1,8 +1,8 @@
 import { ReactiveControllerHost } from "lit";
 import { StatusRenderer, Task } from "@lit-labs/task";
-import { Docmap } from "docmaps-sdk";
-import * as E from 'fp-ts/lib/Either'
-import {pipe} from 'fp-ts/lib/function'
+import { Docmap, DocmapT, StepT } from "docmaps-sdk";
+import * as E from "fp-ts/lib/Either";
+import { pipe } from "fp-ts/lib/function";
 
 export class DocmapsFetchingController {
   #task: Task<any>;
@@ -42,8 +42,8 @@ function parseDocmap(docmap: any) {
   const stepsMaybe = pipe(
     docmap,
     Docmap.decode,
-    E.map(d => d.steps ? Object.values(d.steps): []),
-  )
+    E.map(getStepsInOrder),
+  );
 
   if (E.isLeft(stepsMaybe)) {
     throw new Error("Failed to parse docmap; time to panic");
@@ -52,3 +52,24 @@ function parseDocmap(docmap: any) {
   }
 }
 
+function getStepsInOrder(docmap: DocmapT): StepT[] {
+  const visitedSteps: Set<string> = new Set(); // we keep track of visited steps for loop detection
+  let idNextStep: string | null | undefined = docmap["first-step"];
+  const stepsById = docmap.steps;
+  const orderedSteps: StepT[] = [];
+  if (!idNextStep || !stepsById) {
+    return [];
+  }
+
+  while (idNextStep && idNextStep in stepsById) {
+    if (visitedSteps.has(idNextStep)) {
+      console.log("loop detected, aborting step iterator at %s", idNextStep);
+      break;
+    }
+    visitedSteps.add(idNextStep);
+    const nextStep: StepT = stepsById[idNextStep];
+    orderedSteps.push(nextStep);
+    idNextStep = nextStep["next-step"];
+  }
+  return orderedSteps;
+}
