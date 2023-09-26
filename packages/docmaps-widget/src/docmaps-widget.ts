@@ -1,6 +1,10 @@
 import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import { DocmapsFetchingController } from "./docmaps-fetching-controller";
+import {unsafeHTML} from "lit/directives/unsafe-html.js"
+import * as Prism from "prismjs";
+import "prismjs/components/prism-json.js";
+import {prismCssStyles} from "./prism-css";
 
 /**
  * An example element.
@@ -14,34 +18,7 @@ export class DocmapsWidget extends LitElement {
   #fetchingController: DocmapsFetchingController =
     new DocmapsFetchingController(this);
 
-  static override styles = css`
-    :host {
-      display: block;
-      border: solid 1px gray;
-      padding: 16px;
-    }
-
-    details {
-      border: 1px solid #aaa;
-      border-radius: 4px;
-      padding: 0.5em 0.5em 0;
-    }
-
-    summary {
-      font-weight: bold;
-      margin: -0.5em -0.5em 0;
-      padding: 0.5em;
-    }
-
-    details[open] {
-      padding: 0.5em;
-    }
-
-    details[open] summary {
-      border-bottom: 1px solid #aaa;
-      margin-bottom: 0.5em;
-    }
-  `;
+  static override styles = [prismCssStyles];
 
   @property()
   doi: string = "N/A";
@@ -54,18 +31,19 @@ export class DocmapsWidget extends LitElement {
     return html`<p>Loading...</p>`;
   }
 
-  renderAfterLoad(r: { rawDocmap: any, parsedDocmap: any}) {
-    const result = JSON.stringify(r.rawDocmap, null, 2);
+  renderAfterLoad(r: { rawDocmap: any, parsedDocmap: any[]}) {
+    const formattedRaw = JSON.stringify(r.rawDocmap, null, 2);
+    const formattedParsed = Prism.highlight(JSON.stringify(r.parsedDocmap, null, 2), Prism.languages.json, 'json')
     return html`
       <details>
         <summary>Raw Docmap</summary>
-        <pre>${result}</pre>
+        <pre>${formattedRaw}</pre>
       </details>
       <br>
       <br>
       <details open>
-        <summary>Parsed Docmap</summary>
-        <pre>${JSON.stringify(r.parsedDocmap ?? "default", null, 2)}</pre>
+        <summary>Parsed Docmap with ${r.parsedDocmap.length} steps</summary>
+        <pre><code class="language-json">${unsafeHTML(formattedParsed)}</code></pre>
       </details>
     `;
   }
