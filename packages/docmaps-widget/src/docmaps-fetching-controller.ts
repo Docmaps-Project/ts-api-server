@@ -3,11 +3,9 @@ import { StatusRenderer, Task } from "@lit-labs/task";
 import { Docmap } from "docmaps-sdk";
 
 export class DocmapsFetchingController {
-  // #host: ReactiveControllerHost;
   #task: Task<any>;
 
   constructor(host: ReactiveControllerHost) {
-    // this.#host = host;
     this.#task = new Task(
       host,
       async () => {
