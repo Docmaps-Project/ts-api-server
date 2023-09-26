@@ -1,6 +1,6 @@
-import {LitElement, html, css} from 'lit';
+import {LitElement, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
-import { DocmapsFetchingController } from "./docmaps-fetching-controller";
+import { DocmapsFetchingController, FetchDocmapResult } from "./docmaps-fetching-controller";
 import {unsafeHTML} from "lit/directives/unsafe-html.js"
 import * as Prism from "prismjs";
 import "prismjs/components/prism-json.js";
@@ -31,9 +31,9 @@ export class DocmapsWidget extends LitElement {
     return html`<p>Loading...</p>`;
   }
 
-  renderAfterLoad(r: { rawDocmap: any, parsedDocmap: any[]}) {
-    const formattedRaw = JSON.stringify(r.rawDocmap, null, 2);
-    const formattedParsed = Prism.highlight(JSON.stringify(r.parsedDocmap, null, 2), Prism.languages.json, 'json')
+  renderAfterLoad({ rawDocmap, steps}: FetchDocmapResult) {
+    const formattedRaw = JSON.stringify(rawDocmap, null, 2);
+    const formattedParsed = Prism.highlight(JSON.stringify(steps, null, 2), Prism.languages.json, 'json')
     return html`
       <details>
         <summary>Raw Docmap</summary>
@@ -42,7 +42,7 @@ export class DocmapsWidget extends LitElement {
       <br>
       <br>
       <details open>
-        <summary>Parsed Docmap with ${r.parsedDocmap.length} steps</summary>
+        <summary>Parsed Docmap with ${steps.length} steps</summary>
         <pre><code class="language-json">${unsafeHTML(formattedParsed)}</code></pre>
       </details>
     `;

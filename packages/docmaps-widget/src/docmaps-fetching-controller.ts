@@ -4,13 +4,18 @@ import { Docmap, DocmapT, StepT } from "docmaps-sdk";
 import * as E from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
 
+export interface FetchDocmapResult {
+  rawDocmap: any;
+  steps: StepT[];
+}
+
 export class DocmapsFetchingController {
   #task: Task<any>;
 
   constructor(host: ReactiveControllerHost) {
     this.#task = new Task(
       host,
-      async () => {
+      async (): Promise<FetchDocmapResult> => {
         let rawDocmap: any;
 
         try {
@@ -22,11 +27,11 @@ export class DocmapsFetchingController {
           throw new Error("Failed to fetch docmap; time to panic");
         }
 
-        const parsedDocmap = parseDocmap(rawDocmap);
+        const steps: StepT[] = getSteps(rawDocmap);
 
         return {
           rawDocmap,
-          parsedDocmap,
+          steps,
         };
       },
       () => [],
@@ -38,7 +43,7 @@ export class DocmapsFetchingController {
   }
 }
 
-function parseDocmap(docmap: any) {
+function getSteps(docmap: any) {
   const stepsMaybe = pipe(
     docmap,
     Docmap.decode,
