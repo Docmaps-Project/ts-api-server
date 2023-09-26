@@ -55,8 +55,7 @@ export class DocmapsWidget extends LitElement {
   }
 
   renderAfterLoad(r: { rawDocmap: any, parsedDocmap: any}) {
-    const docmap = r.rawDocmap[0];
-    const result = JSON.stringify(docmap, null, 2);
+    const result = JSON.stringify(r.rawDocmap, null, 2);
     return html`
       <details>
         <summary>Raw Docmap</summary>
