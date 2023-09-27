@@ -1,4 +1,4 @@
-import type { ApiInfo, BackendAdapter } from './types'
+import type { ApiInfo, BackendAdapter, ThingSpec } from './types'
 import * as TE from 'fp-ts/TaskEither'
 import * as D from 'docmaps-sdk'
 
@@ -49,8 +49,12 @@ export class ApiInstance {
 
   // FIXME: it is likely that this needs to be called docmap_by_iri instead.
   // Current rationale for this name is that the IRI-based docmap "may not"
-  // be implicit in any user of this contract, but taht is pretty weak.
+  // be implicit in any user of this contract, but that is pretty weak.
   get_docmap_by_id(id: string): TE.TaskEither<Error, D.DocmapT> {
     return this.adapter.docmapWithIri(id)
+  }
+
+  get_docmap_for_thing(s: ThingSpec): TE.TaskEither<Error, D.DocmapT> {
+    return this.adapter.docmapForThing(s)
   }
 }

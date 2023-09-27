@@ -142,6 +142,7 @@ export class SparqlAdapter implements BackendAdapter {
     switch (thing.kind) {
       case 'iri':
         query = DocmapForThingIriQuery(thing.identifier)
+        // FIXME: this case is not known and requires test implementation.
         throw 'not implemented'
       case 'doi':
         query = DocmapForThingDoiQuery(thing.identifier)
