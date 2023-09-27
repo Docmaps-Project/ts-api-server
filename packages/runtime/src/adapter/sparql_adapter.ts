@@ -80,17 +80,19 @@ function DocmapForThingIriQuery(iri: string): Construct {
 }
 
 function DocmapForThingDoiQuery(doi: string): Construct {
-  const values = [{ doi: doi }]
+  const doiLit = factory.literal(doi)
+  const values = [{ doi: doiLit }]
 
   // FIXME: use UNION to minimize the quads retrieved
   const q = CONSTRUCT`
     ?s ?p ?o .
   `.WHERE`
     {
-      SELECT DISTINCT ?map ?s0 ?s ?p ?o WHERE {
+      SELECT DISTINCT ?s ?p ?o WHERE {
         ${VALUES(...values)}
-        ?map (!<>)+ ?s0 .
         ?s0 <http://prismstandard.org/namespaces/basic/2.0/doi> ?doi .
+        ?map (!<>)+ ?s0 .
+        ?map <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/spar/pwo/Workflow> .
         ?map (!<>)* ?s .
         ?s ?p ?o .
       }

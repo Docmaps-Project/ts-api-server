@@ -87,6 +87,23 @@ export class HttpServer {
           body: result.right,
         }
       },
+      getDocmapForDoi: async (req) => {
+        const doi = req.query.subject
+        console.log(doi)
+        const result = await this.api.get_docmap_for_thing({ identifier: doi, kind: 'doi' })()
+
+        if (isLeft(result)) {
+          return {
+            status: 404, // FIXME: more expressive errors.
+            body: result.left,
+          }
+        }
+
+        return {
+          status: 200,
+          body: result.right,
+        }
+      },
     })
 
     // FIXME: resolve this awkward use of typescript ignores. The only

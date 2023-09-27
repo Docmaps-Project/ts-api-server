@@ -60,3 +60,27 @@ test.serial('it serves /docmap endpoint', async (t) => {
     })
   }, t.log)
 })
+
+test.serial('it serves /docmap_for/doi endpoint', async (t) => {
+  await withNewServer(async (_s) => {
+    const client = MakeHttpClient({
+      baseUrl: 'http://localhost:33033',
+      baseHeaders: {},
+    })
+    const testDoi1 = '10.1101/2021.03.24.436774'
+
+    const resp = await client.getDocmapForDoi({
+      query: { subject: testDoi1 },
+    })
+
+    t.is(resp.status, 200, `failed with this response: ${inspect(resp, { depth: null })}`)
+
+    const dm = resp.body as D.DocmapT
+
+    t.deepEqual(dm.id, 'https://eeb.embo.org/api/v2/docmap/10.1101/2021.03.24.436774')
+    t.deepEqual(dm.publisher, {
+      name: 'review commons',
+      url: 'https://reviewcommons.org/',
+    })
+  }, t.log)
+})
