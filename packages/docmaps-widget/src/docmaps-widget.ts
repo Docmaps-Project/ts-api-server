@@ -41,9 +41,15 @@ export class DocmapsWidget extends LitElement {
 
     const render = new dagreD3.render();
 
-    const svg = d3.select(
-      this.shadowRoot?.querySelector("#svg-canvas")
-    );
+    // Get the element we're going to draw the graph inside of
+    if (!this.shadowRoot) {
+      throw new Error("Shadow root is undefined");
+    }
+    const svgElement = this.shadowRoot.querySelector("#svg-canvas");
+    if (!svgElement) {
+      throw new Error("SVG element not found");
+    }
+    const svg = d3.select(svgElement);
 
     // Run the renderer on the SVG group and graph
     const svgGroup = svg.append("g");
@@ -62,7 +68,7 @@ export class DocmapsWidget extends LitElement {
       </details>
       <br>
       <br>
-      <details open>
+      <details>
         <summary>Parsed Docmap with ${steps.length} steps</summary>
         <pre><code class="language-json">${unsafeHTML(formattedParsed)}</code></pre>
       </details>
