@@ -15,13 +15,13 @@ import {prismCssStyles} from "./prism-css";
  */
 @customElement("docmaps-widget")
 export class DocmapsWidget extends LitElement {
-  #fetchingController: DocmapsFetchingController =
-    new DocmapsFetchingController(this);
-
-  static override styles = [prismCssStyles];
-
   @property()
   doi: string = "N/A";
+
+  #fetchingController: DocmapsFetchingController =
+    new DocmapsFetchingController(this, this.doi);
+
+  static override styles = [prismCssStyles];
 
   initialRender() {
     return html`<p>Haven't even tried to fetch yet tbh</p>`;
