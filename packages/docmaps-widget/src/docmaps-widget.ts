@@ -4,10 +4,9 @@ import { DocmapsFetchingController, FetchDocmapResult } from "./docmaps-fetching
 import {unsafeHTML} from "lit/directives/unsafe-html.js"
 import * as Prism from "prismjs";
 import "prismjs/components/prism-json.js";
-import {prismCssStyles} from "./prism-css";
+import {cssStyles} from "./custom-css";
 import * as dagreD3 from "dagre-d3";
 import * as d3 from "d3";
-import * as Dagre from "dagre";
 
 /**
  * An example element.
@@ -24,7 +23,7 @@ export class DocmapsWidget extends LitElement {
   #fetchingController: DocmapsFetchingController =
     new DocmapsFetchingController(this, this.doi);
 
-  static override styles = [prismCssStyles];
+  static override styles = [cssStyles];
 
 
   initialRender() {

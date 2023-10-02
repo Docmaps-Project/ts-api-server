@@ -91,8 +91,6 @@ function makeGraph(_doi: string, steps: StepT[]): any {
   graph.setGraph({});
   graph.setDefaultEdgeLabel(() => ({}));
 
-  const width = 121;
-  const height = 100;
   // graph.setNode(doi, { label: doi, width, height });
 
   const seenDois: Set<string> = new Set();

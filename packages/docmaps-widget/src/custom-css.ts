@@ -1,6 +1,6 @@
 import { css } from "lit";
 
-export const prismCssStyles = css`
+export const cssStyles = css`
   /**
    * Random stuff
    */
