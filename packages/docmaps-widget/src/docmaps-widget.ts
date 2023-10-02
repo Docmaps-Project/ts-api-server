@@ -5,6 +5,9 @@ import {unsafeHTML} from "lit/directives/unsafe-html.js"
 import * as Prism from "prismjs";
 import "prismjs/components/prism-json.js";
 import {prismCssStyles} from "./prism-css";
+import * as dagreD3 from "dagre-d3";
+import * as d3 from "d3";
+import * as Dagre from "dagre";
 
 /**
  * An example element.
@@ -23,6 +26,7 @@ export class DocmapsWidget extends LitElement {
 
   static override styles = [prismCssStyles];
 
+
   initialRender() {
     return html`<p>Haven't even tried to fetch yet tbh</p>`;
   }
@@ -31,9 +35,26 @@ export class DocmapsWidget extends LitElement {
     return html`<p>Loading...</p>`;
   }
 
-  renderAfterLoad({ rawDocmap, steps}: FetchDocmapResult) {
+  renderAfterLoad({ rawDocmap, steps, graph}: FetchDocmapResult) {
     const formattedRaw = JSON.stringify(rawDocmap, null, 2);
     const formattedParsed = Prism.highlight(JSON.stringify(steps, null, 2), Prism.languages.json, 'json')
+
+    const render = new dagreD3.render();
+
+    const svg = d3.select(
+      this.shadowRoot?.querySelector("#svg-canvas")
+    );
+
+    // Run the renderer on the SVG group and graph
+    const svgGroup = svg.append("g");
+    render(svgGroup, graph);
+
+    // Center the graph
+    const xCenterOffset = (svg.attr("width") - graph.graph().width) / 2;
+    svgGroup.attr("transform", "translate(" + xCenterOffset + ", 20)");
+    svg.attr("height", graph.graph().height + 40);
+
+
     return html`
       <details>
         <summary>Raw Docmap</summary>
@@ -55,6 +76,8 @@ export class DocmapsWidget extends LitElement {
   override render() {
     return html`
       <h2>DOI: ${this.doi}</h2>
+      <svg id="svg-canvas" width="1500">
+      </svg>
 
       ${this.#fetchingController.render({
         initial: this.initialRender.bind(this),

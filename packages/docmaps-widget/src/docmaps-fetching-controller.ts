@@ -80,11 +80,11 @@ function getStepsInOrder(docmap: DocmapT): StepT[] {
   return orderedSteps;
 }
 
-type DisplayObject = {
-  doi: string;
-  type?: ThingType;
-  published?: Date;
-};
+// type DisplayObject = {
+//   doi: string;
+//   type?: ThingType;
+//   published?: Date;
+// };
 
 function makeGraph(_doi: string, steps: StepT[]): any {
   const graph = new Dagre.graphlib.Graph();
@@ -117,7 +117,7 @@ function makeGraph(_doi: string, steps: StepT[]): any {
 
           const thisId = output.doi || output.id || "";
 
-          graph.setNode(thisId, { label: thisId, width, height });
+          graph.setNode(thisId, { label: thisId, class: "type-TOP" });
 
           for (const input of step.inputs) {
             if (input.doi) {
@@ -130,12 +130,5 @@ function makeGraph(_doi: string, steps: StepT[]): any {
   }
 
   Dagre.layout(graph);
-  graph.nodes().forEach(function (v) {
-    console.log("Node " + v + ": " + JSON.stringify(graph.node(v)));
-  });
-  graph.edges().forEach(function (e) {
-    console.log(
-      "Edge " + e.v + " -> " + e.w + ": " + JSON.stringify(graph.edge(e)),
-    );
-  });
+  return graph;
 }

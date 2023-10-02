@@ -10,14 +10,19 @@
   },
   "dependencies": {
     "@lit-labs/task": "^3.0.2",
+    "cytoscape": "^3.26.0",
+    "d3": "^7.8.5",
     "dagre": "^0.8.5",
+    "dagre-d3": "^0.6.4",
     "docmaps-sdk": "^0.11.2",
     "fp-ts": "^2.14.0",
     "lit": "^2.7.6",
     "prismjs": "^1.29.0"
   },
   "devDependencies": {
+    "@types/d3": "^7.4.1",
     "@types/dagre": "^0.7.50",
+    "@types/dagre-d3": "^0.6.4",
     "@types/prismjs": "^1.26.1",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"

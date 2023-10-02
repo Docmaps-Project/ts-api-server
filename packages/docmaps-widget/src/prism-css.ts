@@ -4,6 +4,7 @@ export const prismCssStyles = css`
   /**
    * Random stuff
    */
+
   :host {
     display: block;
     border: solid 1px gray;
@@ -30,11 +31,37 @@ export const prismCssStyles = css`
     border-bottom: 1px solid #aaa;
     margin-bottom: 0.5em;
   }
-  
+
+  /**
+    * d3 stuff
+   */
+
+  g.type-TK > rect {
+    fill: #00ffd0;
+  }
+
+  text {
+    font-weight: 300;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+  }
+
+  .node rect {
+    stroke: #999;
+    fill: #fff;
+    stroke-width: 1.5px;
+  }
+
+  .edgePath path {
+    stroke: #333;
+    stroke-width: 1.5px;
+  }
+
   /**
    * prism.js default theme for JavaScript, CSS and HTML
    * Based on dabblet (http://dabblet.com)
    */
+
   code[class*="language-"],
   pre[class*="language-"] {
     color: black;
