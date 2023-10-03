@@ -81,9 +81,9 @@ function getStepsInOrder(docmap: DocmapT): StepT[] {
 }
 
 type DisplayObject = {
+  type?: string;
   doi?: string;
   id?: string;
-  type?: string;
   published?: string;
   url?: string;
 };
@@ -126,10 +126,10 @@ function makeGraph(_doi: string, steps: StepT[]): any {
         }
 
         nodes[thisId] = {
-          doi: output.doi,
-          id: output.id,
           type,
           published,
+          doi: output.doi,
+          id: output.id,
         };
 
         for (const input of step.inputs) {
