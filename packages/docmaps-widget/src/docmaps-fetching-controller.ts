@@ -91,21 +91,20 @@ function makeGraph(_doi: string, steps: StepT[]): any {
   graph.setGraph({});
   graph.setDefaultEdgeLabel(() => ({}));
 
-  // graph.setNode(doi, { label: doi, width, height });
-
   const seenDois: Set<string> = new Set();
+
   for (const step of steps) {
     for (const action of step.actions) {
       for (const output of action.outputs) {
         // first: figure out if we've seen this output already
-        if (!output.doi && !output.id) {
+        if ((!output.doi && !output.id)) {
           continue;
         }
         const haveSeenDoi = output.doi && seenDois.has(output.doi);
         const haveSeenId = output.id && seenDois.has(output.id);
 
         // If it's new, Make a node
-        if (!haveSeenDoi && !haveSeenId) {
+        if (!(haveSeenDoi || haveSeenId)) {
           if (output.doi) {
             seenDois.add(output.doi);
           }
@@ -126,6 +125,12 @@ function makeGraph(_doi: string, steps: StepT[]): any {
       }
     }
   }
+
+  graph.nodes().forEach(v => {
+    const node = graph.node(v);
+    // Round the corners of the nodes
+    node.rx = node.ry = 5;
+  });
 
   Dagre.layout(graph);
   return graph;
