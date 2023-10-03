@@ -6,6 +6,7 @@ import {
 } from "./docmaps-fetching-controller";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import * as Prism from "prismjs";
+// @ts-ignore
 import "prismjs/components/prism-json.js";
 import { cssStyles } from "./custom-css";
 import * as dagreD3 from "dagre-d3";
@@ -14,22 +15,29 @@ import * as d3 from "d3";
 @customElement("docmaps-widget")
 export class DocmapsWidget extends LitElement {
   @property()
-  doi: string = "N/A";
+  doi: string = "";
 
-  #fetchingController: DocmapsFetchingController =
-    new DocmapsFetchingController(this, this.doi);
+  #docmapController = new DocmapsFetchingController(this);
 
   static override styles = [cssStyles];
 
+  handleButtonClick() {
+    const input =
+      this.shadowRoot?.querySelector<HTMLInputElement>("#doi-input");
+    if (input && input.value) {
+      this.#docmapController.doi = input.value;
+    }
+  }
+
   initialRender() {
-    return html`<p>Haven't even tried to fetch yet tbh</p>`;
+    return html`<p>Enter a doi to display docmap</p>`;
   }
 
   pendingRender() {
     return html`<p>Loading...</p>`;
   }
 
-  renderAfterLoad({ rawDocmap, steps, graph }: FetchDocmapResult) {
+  renderAfterLoad({ rawDocmap, steps, graph, doi }: FetchDocmapResult) {
     const formattedRaw = JSON.stringify(rawDocmap, null, 2);
     const formattedParsed = Prism.highlight(
       JSON.stringify(steps, null, 2),
@@ -60,14 +68,16 @@ export class DocmapsWidget extends LitElement {
     });
     svg.call(zoom);
 
-    // Center the graph
-    // const svgWidth = parseInt(svg.attr("width"), 10);
-    // const xCenterOffset = (svgWidth - graph.graph().width) / 2;
-    // svgGroup.attr("transform", "translate(" + xCenterOffset + ", 20)");
-    svg.attr("height", graph.graph().height + 40);
-    svg.attr("widgth", graph.graph().width + 20);
+    // Set height and width
+    const graphLabel = graph.graph();
+    if (graphLabel) {
+      svg.attr("height", (graphLabel.height ?? 0) + 40);
+      svg.attr("widgth", (graphLabel.width ?? 0) + 20);
+    }
 
     return html`
+      <h2>Displaying Docmap for DOI: ${doi}</h2>
+
       <details>
         <summary>Raw Docmap</summary>
         <pre>${formattedRaw}</pre>
@@ -89,16 +99,17 @@ export class DocmapsWidget extends LitElement {
 
   override render() {
     return html`
-      <h2>DOI: ${this.doi}</h2>
-
       <svg id="svg-canvas" width="1500"></svg>
 
-      ${this.#fetchingController.render({
+      ${this.#docmapController.render({
         initial: this.initialRender.bind(this),
         pending: this.pendingRender.bind(this),
         complete: this.renderAfterLoad.bind(this),
         error: this.errorRender.bind(this),
       })}
+      <br /><br /><br />
+      <input id="doi-input" type="text" placeholder="Enter DOI" .value="${this.doi}" />
+      <button @click="${this.handleButtonClick}">Fetch Docmap</button>
     `;
   }
 }

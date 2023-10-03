@@ -1,5 +1,5 @@
 import { ReactiveControllerHost } from "lit";
-import { StatusRenderer, Task } from "@lit-labs/task";
+import { initialState, StatusRenderer, Task } from "@lit-labs/task";
 import { Docmap, DocmapT, StepT } from "docmaps-sdk";
 import * as E from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
@@ -8,17 +8,33 @@ import * as Dagre from "dagre";
 
 export interface FetchDocmapResult {
   rawDocmap: any;
+  doi: string;
   steps: StepT[];
-  graph: any;
+  graph: Dagre.graphlib.Graph;
 }
 
 export class DocmapsFetchingController {
   #task: Task<any>;
+  #doi: string = "";
+  #host: ReactiveControllerHost;
 
-  constructor(host: ReactiveControllerHost, doi: string) {
-    this.#task = new Task(
+  constructor(host: ReactiveControllerHost) {
+    this.#host = host;
+    this.#task = this.createTask(host);
+  }
+
+  // updateDoi(doi: string) {
+  //   this.#task = this.createTask(this.#host);
+  // }
+
+  private createTask(host: ReactiveControllerHost) {
+    return new Task<[string], FetchDocmapResult>(
       host,
-      async (): Promise<FetchDocmapResult> => {
+      async ([doi]: [string]) => {
+        if (!doi.trim()) {
+          return initialState;
+        }
+
         let rawDocmap: any;
 
         try {
@@ -37,10 +53,20 @@ export class DocmapsFetchingController {
           rawDocmap,
           steps,
           graph,
+          doi,
         };
       },
-      () => [],
+      () => [this.doi],
     );
+  }
+
+  set doi(doi: string) {
+    this.#doi = doi;
+    this.#host.requestUpdate();
+  }
+
+  get doi() {
+    return this.#doi;
   }
 
   render(renderFunctions: StatusRenderer<any>) {
@@ -88,7 +114,7 @@ type DisplayObject = {
   url?: URL;
 };
 
-function makeGraph(_doi: string, steps: StepT[]): any {
+function makeGraph(_doi: string, steps: StepT[]): Dagre.graphlib.Graph {
   const graph = new Dagre.graphlib.Graph();
   graph.setGraph({
     nodesep: 20,
