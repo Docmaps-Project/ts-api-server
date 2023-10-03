@@ -80,20 +80,24 @@ function getStepsInOrder(docmap: DocmapT): StepT[] {
   return orderedSteps;
 }
 
-// type DisplayObject = {
-//   doi: string;
-//   type?: ThingType;
-//   published?: Date;
-// };
+type DisplayObject = {
+  doi?: string;
+  id?: string;
+  type?: string;
+  published?: string;
+  url?: string;
+};
 
 function makeGraph(_doi: string, steps: StepT[]): any {
   const graph = new Dagre.graphlib.Graph();
   graph.setGraph({
-    nodesep: 20
+    nodesep: 20,
   });
   graph.setDefaultEdgeLabel(() => ({}));
 
   const seenDois: Set<string> = new Set();
+
+  const nodes: { [id: string]: DisplayObject } = {};
 
   for (const step of steps) {
     for (const action of step.actions) {
@@ -111,7 +115,22 @@ function makeGraph(_doi: string, steps: StepT[]): any {
           seenDois.add(output.id);
         }
 
-        graph.setNode(thisId, { label: thisId, class: "type-TOP" });
+        const type = Array.isArray(output.type) ? output.type[0] : output.type;
+        let published: string | undefined = undefined;
+        if (output.published) {
+          if (output.published instanceof Date) {
+            published = formatDate(output.published);
+          } else {
+            published = output.published;
+          }
+        }
+
+        nodes[thisId] = {
+          doi: output.doi,
+          id: output.id,
+          type,
+          published,
+        };
 
         for (const input of step.inputs) {
           const inputId = input.doi || input.id;
@@ -123,6 +142,18 @@ function makeGraph(_doi: string, steps: StepT[]): any {
     }
   }
 
+  for (const [id, node] of Object.entries(nodes)) {
+    const label = Object.entries(node).reduce((acc, [_k, v]) => {
+      if (v) {
+        return acc + `${_k}: ${v}\n`;
+      } else {
+        return acc;
+      }
+    }, "");
+
+    graph.setNode(id, { label, height: 50, class: "type-TOP" });
+  }
+
   graph.nodes().forEach((v) => {
     const node = graph.node(v);
     node.rx = node.ry = 5; // Round the corners of the nodes
@@ -130,4 +161,26 @@ function makeGraph(_doi: string, steps: StepT[]): any {
 
   Dagre.layout(graph);
   return graph;
+}
+
+function formatDate(date: Date) {
+  const yyyy = date.getFullYear();
+
+  // The getMonth() method returns the month (0-11) for the specified date,
+  // so you need to add 1 to get the correct month.
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+
+  // Convert month and day numbers to strings and prefix them with a zero if they're below 10
+  let mm = month.toString();
+  if (month < 10) {
+    mm = "0" + month;
+  }
+
+  let dd = day.toString();
+  if (day < 10) {
+    dd = "0" + day.toString();
+  }
+
+  return yyyy + "-" + mm + "-" + dd;
 }

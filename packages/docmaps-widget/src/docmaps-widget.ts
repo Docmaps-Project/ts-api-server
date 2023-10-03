@@ -54,6 +54,13 @@ export class DocmapsWidget extends LitElement {
     const svgGroup = svg.append("g");
     render(svgGroup, graph);
 
+    // Center the graph
+    // const svgWidth = parseInt(svg.attr("width"), 10);
+    // const xCenterOffset = (svgWidth - graph.graph().width) / 2;
+    // svgGroup.attr("transform", "translate(" + xCenterOffset + ", 20)");
+    svg.attr("height", graph.graph().height + 40);
+    svg.attr("widgth", graph.graph().width + 20);
+
     return html`
       <details>
         <summary>Raw Docmap</summary>
