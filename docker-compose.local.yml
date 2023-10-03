@@ -7,8 +7,7 @@ services:
     volumes:
       - "./tmp/oxigraph_data:/data"
   server:
-    build:
-      context: .
+    image: docmaps/api-server
     command: start
     environment:
       NODE_ENV: production
