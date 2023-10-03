@@ -88,7 +88,9 @@ function getStepsInOrder(docmap: DocmapT): StepT[] {
 
 function makeGraph(_doi: string, steps: StepT[]): any {
   const graph = new Dagre.graphlib.Graph();
-  graph.setGraph({});
+  graph.setGraph({
+    nodesep: 20
+  });
   graph.setDefaultEdgeLabel(() => ({}));
 
   const seenDois: Set<string> = new Set();
@@ -96,40 +98,34 @@ function makeGraph(_doi: string, steps: StepT[]): any {
   for (const step of steps) {
     for (const action of step.actions) {
       for (const output of action.outputs) {
-        // first: figure out if we've seen this output already
-        if ((!output.doi && !output.id)) {
+        const thisId = output.doi || output.id;
+
+        if (!thisId || seenDois.has(thisId)) {
           continue;
         }
-        const haveSeenDoi = output.doi && seenDois.has(output.doi);
-        const haveSeenId = output.id && seenDois.has(output.id);
 
-        // If it's new, Make a node
-        if (!(haveSeenDoi || haveSeenId)) {
-          if (output.doi) {
-            seenDois.add(output.doi);
-          }
-          if (output.id) {
-            seenDois.add(output.id);
-          }
+        if (output.doi) {
+          seenDois.add(output.doi);
+        }
+        if (output.id) {
+          seenDois.add(output.id);
+        }
 
-          const thisId = output.doi || output.id || "";
+        graph.setNode(thisId, { label: thisId, class: "type-TOP" });
 
-          graph.setNode(thisId, { label: thisId, class: "type-TOP" });
-
-          for (const input of step.inputs) {
-            if (input.doi) {
-              graph.setEdge(input.doi, thisId);
-            }
+        for (const input of step.inputs) {
+          const inputId = input.doi || input.id;
+          if (inputId) {
+            graph.setEdge(inputId, thisId);
           }
         }
       }
     }
   }
 
-  graph.nodes().forEach(v => {
+  graph.nodes().forEach((v) => {
     const node = graph.node(v);
-    // Round the corners of the nodes
-    node.rx = node.ry = 5;
+    node.rx = node.ry = 5; // Round the corners of the nodes
   });
 
   Dagre.layout(graph);
