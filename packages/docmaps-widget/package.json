@@ -17,7 +17,8 @@
     "docmaps-sdk": "^0.12.0",
     "fp-ts": "^2.14.0",
     "lit": "^2.7.6",
-    "prismjs": "^1.29.0"
+    "prismjs": "^1.29.0",
+    "@docmaps/ts-api-server/runtime": "workspace:^0.1.0"
   },
   "devDependencies": {
     "@types/d3": "^7.4.1",

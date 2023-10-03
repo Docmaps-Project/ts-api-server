@@ -56,17 +56,18 @@ export class DocmapsWidget extends LitElement {
       throw new Error("SVG element not found");
     }
     const svg = d3.select(svgElement);
-    const inner = svg.select("g");
+    // const inner = svg.select("g");
 
     // Run the renderer on the SVG group and graph
     const svgGroup = svg.append("g");
+    // @ts-ignore
     render(svgGroup, graph);
 
     // set up zoom
-    var zoom = d3.zoom().on("zoom", function () {
-      inner.attr("transform", d3.event.transform);
-    });
-    svg.call(zoom);
+    // var zoom = d3.zoom().on("zoom", function () {
+    //   inner.attr("transform", d3.event.transform);
+    // });
+    // svg.call(zoom);
 
     // Set height and width
     const graphLabel = graph.graph();

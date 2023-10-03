@@ -41,6 +41,9 @@ importers:
 
   packages/docmaps-widget:
     dependencies:
+      '@docmaps/ts-api-server/runtime':
+        specifier: workspace:^0.1.0
+        version: link:../runtime
       '@lit-labs/task':
         specifier: ^3.0.2
         version: 3.0.2
