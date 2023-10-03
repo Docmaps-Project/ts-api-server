@@ -85,7 +85,7 @@ type DisplayObject = {
   doi?: string;
   id?: string;
   published?: string;
-  url?: string;
+  url?: URL;
 };
 
 function makeGraph(_doi: string, steps: StepT[]): any {
@@ -130,6 +130,7 @@ function makeGraph(_doi: string, steps: StepT[]): any {
           published,
           doi: output.doi,
           id: output.id,
+          url: output.url,
         };
 
         for (const input of step.inputs) {
