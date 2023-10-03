@@ -169,8 +169,8 @@ function formatDate(date: Date) {
 
   // The getMonth() method returns the month (0-11) for the specified date,
   // so you need to add 1 to get the correct month.
-  let month = date.getMonth() + 1;
-  let day = date.getDate();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
 
   // Convert month and day numbers to strings and prefix them with a zero if they're below 10
   let mm = month.toString();

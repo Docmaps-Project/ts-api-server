@@ -1,20 +1,16 @@
-import {LitElement, html} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
-import { DocmapsFetchingController, FetchDocmapResult } from "./docmaps-fetching-controller";
-import {unsafeHTML} from "lit/directives/unsafe-html.js"
+import { html, LitElement } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import {
+  DocmapsFetchingController,
+  FetchDocmapResult,
+} from "./docmaps-fetching-controller";
+import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import * as Prism from "prismjs";
 import "prismjs/components/prism-json.js";
-import {cssStyles} from "./custom-css";
+import { cssStyles } from "./custom-css";
 import * as dagreD3 from "dagre-d3";
 import * as d3 from "d3";
 
-/**
- * An example element.
- *
- * @fires count-changed - Indicates when the count changes
- * @slot - This element has a slot
- * @csspart button - The button
- */
 @customElement("docmaps-widget")
 export class DocmapsWidget extends LitElement {
   @property()
@@ -25,7 +21,6 @@ export class DocmapsWidget extends LitElement {
 
   static override styles = [cssStyles];
 
-
   initialRender() {
     return html`<p>Haven't even tried to fetch yet tbh</p>`;
   }
@@ -34,9 +29,13 @@ export class DocmapsWidget extends LitElement {
     return html`<p>Loading...</p>`;
   }
 
-  renderAfterLoad({ rawDocmap, steps, graph}: FetchDocmapResult) {
+  renderAfterLoad({ rawDocmap, steps, graph }: FetchDocmapResult) {
     const formattedRaw = JSON.stringify(rawDocmap, null, 2);
-    const formattedParsed = Prism.highlight(JSON.stringify(steps, null, 2), Prism.languages.json, 'json')
+    const formattedParsed = Prism.highlight(
+      JSON.stringify(steps, null, 2),
+      Prism.languages.json,
+      "json",
+    );
 
     const render = new dagreD3.render();
 
@@ -56,7 +55,7 @@ export class DocmapsWidget extends LitElement {
     render(svgGroup, graph);
 
     // set up zoom
-    var zoom = d3.zoom().on("zoom", function() {
+    var zoom = d3.zoom().on("zoom", function () {
       inner.attr("transform", d3.event.transform);
     });
     svg.call(zoom);
@@ -73,11 +72,13 @@ export class DocmapsWidget extends LitElement {
         <summary>Raw Docmap</summary>
         <pre>${formattedRaw}</pre>
       </details>
-      <br>
-      <br>
+      <br />
+      <br />
       <details>
         <summary>Parsed Docmap with ${steps.length} steps</summary>
-        <pre><code class="language-json">${unsafeHTML(formattedParsed)}</code></pre>
+        <pre><code class="language-json">${unsafeHTML(
+          formattedParsed,
+        )}</code></pre>
       </details>
     `;
   }
@@ -89,8 +90,8 @@ export class DocmapsWidget extends LitElement {
   override render() {
     return html`
       <h2>DOI: ${this.doi}</h2>
-      <svg id="svg-canvas" width="1500">
-      </svg>
+
+      <svg id="svg-canvas" width="1500"></svg>
 
       ${this.#fetchingController.render({
         initial: this.initialRender.bind(this),
@@ -104,6 +105,6 @@ export class DocmapsWidget extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'docmaps-widget': DocmapsWidget;
+    "docmaps-widget": DocmapsWidget;
   }
 }
