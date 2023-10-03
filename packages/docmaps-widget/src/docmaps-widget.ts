@@ -109,7 +109,12 @@ export class DocmapsWidget extends LitElement {
         error: this.errorRender.bind(this),
       })}
       <br /><br />
-      <input id="doi-input" type="text" placeholder="Enter DOI" .value="${this.doi}" />
+      <input
+        id="doi-input"
+        type="text"
+        placeholder="Enter DOI"
+        .value="${this.doi}"
+      />
       <button @click="${this.handleButtonClick}">Fetch Docmap</button>
     `;
   }
