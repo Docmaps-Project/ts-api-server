@@ -15,7 +15,12 @@ import * as d3 from "d3";
 @customElement("docmaps-widget")
 export class DocmapsWidget extends LitElement {
   @property()
-  doi: string = "";
+  // @ts-ignore
+  doi: string;
+
+  @property()
+  // @ts-ignore
+  serverUrl: string;
 
   #docmapController = new DocmapsFetchingController(this);
 

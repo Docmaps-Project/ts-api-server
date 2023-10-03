@@ -13,21 +13,21 @@ export interface FetchDocmapResult {
   graph: Dagre.graphlib.Graph;
 }
 
+type TightlyCoupledWidget = ReactiveControllerHost & {
+  serverUrl: string;
+};
+
 export class DocmapsFetchingController {
   #task: Task<any>;
   #doi: string = "";
-  #host: ReactiveControllerHost;
+  #widget: TightlyCoupledWidget;
 
-  constructor(host: ReactiveControllerHost) {
-    this.#host = host;
-    this.#task = this.createTask(host);
+  constructor(widget: TightlyCoupledWidget) {
+    this.#widget = widget;
+    this.#task = this.createTask(widget);
   }
 
-  // updateDoi(doi: string) {
-  //   this.#task = this.createTask(this.#host);
-  // }
-
-  private createTask(host: ReactiveControllerHost) {
+  private createTask(host: TightlyCoupledWidget) {
     return new Task<[string], FetchDocmapResult>(
       host,
       async ([doi]: [string]) => {
@@ -38,6 +38,8 @@ export class DocmapsFetchingController {
         let rawDocmap: any;
 
         try {
+          console.log("about to fetch from server: " + this.#widget.serverUrl);
+
           const docmapUrl: string = `https://raw.githubusercontent.com/Docmaps-Project/docmaps/main/examples/docmaps-example-elife-02.jsonld`;
           const response = await fetch(docmapUrl);
           const rawDocmapArray = await response.json();
@@ -62,7 +64,7 @@ export class DocmapsFetchingController {
 
   set doi(doi: string) {
     this.#doi = doi;
-    this.#host.requestUpdate();
+    this.#widget.requestUpdate();
   }
 
   get doi() {
