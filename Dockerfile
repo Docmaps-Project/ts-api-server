@@ -4,7 +4,7 @@
 # If you need more help, visit the Dockerfile reference guide at
 # https://docs.docker.com/engine/reference/builder/
 
-ARG NODE_VERSION=18.14.0
+ARG NODE_VERSION=18.18.0
 ARG PNPM_VERSION=8.7.6
 
 ################################################################################
@@ -28,7 +28,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
       pnpm install \
       --frozen-lockfile
 
-RUN pnpm run -r build
+RUN pnpm run -r --filter=!@docmaps/widget build
 
 ################################################################################
 # Download dependencies as a separate step to take advantage of Docker's caching.
