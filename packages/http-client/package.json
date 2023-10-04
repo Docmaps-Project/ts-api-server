@@ -1,9 +1,10 @@
 {
-  "name": "@docmaps/ts-api-server/runtime",
+  "name": "@docmaps/http-client",
   "version": "0.1.0",
-  "description": "Node.js runtime for serving docmaps using other composed docmaps-related npm modules",
+  "description": "HTTP client for Docmaps API specification",
   "type": "module",
-  "main": "dist/httpserver/main.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "ava",
     "clean": "rm -rf dist/",
@@ -25,35 +26,11 @@
     "tsconfig.json"
   ],
   "dependencies": {
-    "@commander-js/extra-typings": "^11.0.0",
-    "@rdfjs/data-model": "^2.0.1",
-    "@rdfjs/namespace": "^2.0.0",
-    "@tpluscode/sparql-builder": "^0.3.31",
     "@ts-rest/core": "^3.30.2",
-    "@ts-rest/express": "^3.30.2",
-    "@tsconfig/node-lts-strictest-esm": "^18.12.1",
-    "@zazuko/rdf-vocabularies": "^2023.1.19",
-    "commander": "^11.0.0",
-    "docmaps-sdk": "^0.11.2",
-    "express": "^4.18.2",
-    "fetch-sparql-endpoint": "^4.0.0",
-    "fp-ts": "^2.14.0",
-    "immutable": "5.0.0-beta.4",
-    "isomorphic-fetch": "^3.0.0",
-    "n3": "^1.17.1",
-    "oxigraph": "^0.3.19",
-    "streaming-iterables": "^8.0.0",
-    "tsx": "^3.12.7",
-    "@docmaps/http-client": "workspace:^0.1.0"
+    "docmaps-sdk": "^0.11.2"
   },
   "devDependencies": {
-    "@rdfjs/types": "^1.1.0",
-    "@types/express": "^4.17.17",
-    "@types/isomorphic-fetch": "^0.0.36",
-    "@types/n3": "^1.16.0",
     "@types/node": "^18.16.2",
-    "@types/rdfjs__data-model": "^2.0.4",
-    "@types/rdfjs__namespace": "^2.0.5",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "ava": "^5.2.0",
@@ -62,7 +39,6 @@
     "eslint-plugin-prettier": "^5.0.0",
     "prettier": "^3.0.0",
     "ts-mockito": "^2.6.1",
-    "ts-node": "^10.9.1",
     "typescript": "^4.9.5",
     "zod": "^3.22.2"
   },

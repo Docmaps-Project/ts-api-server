@@ -1,8 +1,9 @@
-import test from 'ava'
-import * as D from 'docmaps-sdk'
-import { inspect } from 'util'
-import { MakeHttpClient, API_VERSION } from '../../src'
-import { withNewServer } from './utils'
+import test from "ava";
+import * as D from "docmaps-sdk";
+import { inspect } from "util";
+import { API_VERSION } from "../../src";
+import { MakeHttpClient } from "@docmaps/http-client";
+import { withNewServer } from "./utils";
 
 //FIXME: the close step is by far the longest in server setup, so
 //  these should not shut down express server between tests.
