@@ -8,7 +8,7 @@ import * as Dagre from "dagre";
 
 export interface FetchDocmapResult {
   rawDocmap: any;
-  doi: string;
+  docmapId: string;
   steps: StepT[];
   graph: Dagre.graphlib.Graph;
 }
@@ -19,7 +19,7 @@ type TightlyCoupledWidget = ReactiveControllerHost & {
 
 export class DocmapsFetchingController {
   #task: Task<any>;
-  #doi: string = "";
+  #docmapId: string = "";
   #widget: TightlyCoupledWidget;
 
   constructor(widget: TightlyCoupledWidget) {
@@ -30,8 +30,8 @@ export class DocmapsFetchingController {
   private createTask(host: TightlyCoupledWidget) {
     return new Task<[string], FetchDocmapResult>(
       host,
-      async ([doi]: [string]) => {
-        if (!doi.trim()) {
+      async ([docmapId]: [string]) => {
+        if (!docmapId.trim()) {
           return initialState;
         }
 
@@ -49,26 +49,26 @@ export class DocmapsFetchingController {
         }
 
         const steps: StepT[] = getSteps(rawDocmap);
-        const graph: any = makeGraph(doi, steps);
+        const graph: any = makeGraph(docmapId, steps);
 
         return {
           rawDocmap,
           steps,
           graph,
-          doi,
+          docmapId: docmapId,
         };
       },
-      () => [this.doi],
+      () => [this.docmapId],
     );
   }
 
-  set doi(doi: string) {
-    this.#doi = doi;
+  set docmapId(doi: string) {
+    this.#docmapId = doi;
     this.#widget.requestUpdate();
   }
 
-  get doi() {
-    return this.#doi;
+  get docmapId() {
+    return this.#docmapId;
   }
 
   render(renderFunctions: StatusRenderer<any>) {
@@ -118,9 +118,7 @@ type DisplayObject = {
 
 function makeGraph(_doi: string, steps: StepT[]): Dagre.graphlib.Graph {
   const graph = new Dagre.graphlib.Graph();
-  graph.setGraph({
-    nodesep: 20,
-  });
+  graph.setGraph({ nodesep: 20 });
   graph.setDefaultEdgeLabel(() => ({}));
 
   const seenDois: Set<string> = new Set();

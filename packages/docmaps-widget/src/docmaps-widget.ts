@@ -16,7 +16,7 @@ import * as d3 from "d3";
 export class DocmapsWidget extends LitElement {
   @property()
   // @ts-ignore
-  doi: string;
+  docmapId: string;
 
   @property()
   // @ts-ignore
@@ -30,19 +30,25 @@ export class DocmapsWidget extends LitElement {
     const input =
       this.shadowRoot?.querySelector<HTMLInputElement>("#doi-input");
     if (input && input.value) {
-      this.#docmapController.doi = input.value;
+      this.#docmapController.docmapId = input.value;
     }
   }
 
   initialRender() {
-    return html`<p>Enter a doi to display docmap</p>`;
+    return html`<p>Enter a doi to display docmap</p>
+    <p>Some examples:</p>
+    <ul>
+      <li>https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v1/by-publisher/elife/get-by-doi?preprint_doi=10.1101%2F2022.11.08.515698</li>
+      <li>https://sciety.org/docmaps/v1/articles/10.21203/rs.3.rs-3171736/v1/rapid-reviews-covid-19.docmap.json</li>
+    </ul>
+    `;
   }
 
   pendingRender() {
     return html`<p>Loading...</p>`;
   }
 
-  renderAfterLoad({ rawDocmap, steps, graph, doi }: FetchDocmapResult) {
+  renderAfterLoad({ rawDocmap, steps, graph, docmapId }: FetchDocmapResult) {
     const formattedRaw = JSON.stringify(rawDocmap, null, 2);
     const formattedParsed = Prism.highlight(
       JSON.stringify(steps, null, 2),
@@ -82,7 +88,7 @@ export class DocmapsWidget extends LitElement {
     }
 
     return html`
-      <h2>Displaying Docmap for DOI: ${doi}</h2>
+      <h2>Displaying Docmap for id: ${docmapId}</h2>
 
       <details>
         <summary>Raw Docmap</summary>
@@ -118,7 +124,7 @@ export class DocmapsWidget extends LitElement {
         id="doi-input"
         type="text"
         placeholder="Enter DOI"
-        .value="${this.doi}"
+        .value="${this.id}"
       />
       <button @click="${this.handleButtonClick}">Fetch Docmap</button>
     `;
