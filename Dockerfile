@@ -37,6 +37,8 @@ RUN pnpm run -r build
 # into this layer.
 FROM base AS prod
 
+RUN npm i -g typescript@4.9.5
+
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
       pnpm install \
       --prod \
