@@ -6,7 +6,6 @@ import { pipe } from "fp-ts/lib/function";
 import {MakeHttpClient} from "@docmaps/http-client";
 
 import * as Dagre from "dagre";
-import { inspect } from "util";
 import * as D from "docmaps-sdk";
 
 export interface FetchDocmapResult {
@@ -50,8 +49,12 @@ export class DocmapsFetchingController {
 
           const resp = await client.getDocmapById({
             // params: { id: encodeURI(encodeURIComponent(testIri)) },
-            params: { id: encodeURIComponent(docmapId) },
+            params: { id: encodeURI(encodeURIComponent(docmapId)) },
           })
+
+          if (resp.status !== 200) {
+            throw new Error("Failed to FETCH docmap");
+          }
 
           rawDocmap = resp.body as D.DocmapT
 
@@ -61,7 +64,7 @@ export class DocmapsFetchingController {
           // const rawDocmapArray = await response.json();
           // rawDocmap = rawDocmapArray[0];
         } catch {
-          throw new Error("Failed to fetch docmap; time to panic");
+          throw new Error("Failed to FETCH docmap");
         }
 
         const steps: StepT[] = getSteps(rawDocmap);
