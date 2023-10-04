@@ -14,6 +14,7 @@
     "lint": "npx eslint .",
     "lint:fix": "npx eslint --fix .",
     "start": "tsx dist/httpserver/main.js",
+    "prepare": "tsc --declaration",
     "build": "tsc --declaration"
   },
   "keywords": [],
