@@ -3,8 +3,11 @@ import { initialState, StatusRenderer, Task } from "@lit-labs/task";
 import { Docmap, DocmapT, StepT } from "docmaps-sdk";
 import * as E from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
+import {MakeHttpClient} from "@docmaps/http-client";
 
 import * as Dagre from "dagre";
+import { inspect } from "util";
+import * as D from "docmaps-sdk";
 
 export interface FetchDocmapResult {
   rawDocmap: any;
@@ -40,10 +43,23 @@ export class DocmapsFetchingController {
         try {
           console.log("about to fetch from server: " + this.#widget.serverUrl);
 
-          const docmapUrl: string = `https://raw.githubusercontent.com/Docmaps-Project/docmaps/main/examples/docmaps-example-elife-02.jsonld`;
-          const response = await fetch(docmapUrl);
-          const rawDocmapArray = await response.json();
-          rawDocmap = rawDocmapArray[0];
+          const client = MakeHttpClient({
+            baseUrl: this.#widget.serverUrl,
+            baseHeaders: {},
+          });
+
+          const resp = await client.getDocmapById({
+            // params: { id: encodeURI(encodeURIComponent(testIri)) },
+            params: { id: encodeURIComponent(docmapId) },
+          })
+
+          rawDocmap = resp.body as D.DocmapT
+
+
+          // const docmapUrl: string = `https://raw.githubusercontent.com/Docmaps-Project/docmaps/main/examples/docmaps-example-elife-02.jsonld`;
+          // const response = await fetch(docmapUrl);
+          // const rawDocmapArray = await response.json();
+          // rawDocmap = rawDocmapArray[0];
         } catch {
           throw new Error("Failed to fetch docmap; time to panic");
         }
