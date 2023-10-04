@@ -1,2 +1,3 @@
 packages:
   - 'packages/runtime'
+  - 'packages/http-client'

@@ -6,6 +6,8 @@ Typescript reference implementation of Docmaps Project RFC#001 API Server Intero
 
 **`packages/runtime/`:** the API server code.
 
+**`packages/http-client/`:** the client for talking to the API server.
+
 ## Development
 
 See individual package READMEs for more info. In general, this monorepo depends on:

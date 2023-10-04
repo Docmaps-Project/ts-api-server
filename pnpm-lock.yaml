@@ -39,11 +39,57 @@ importers:
         specifier: ^4.9.5
         version: 4.9.5
 
+  packages/http-client:
+    dependencies:
+      '@ts-rest/core':
+        specifier: ^3.30.2
+        version: 3.30.2(zod@3.22.2)
+      docmaps-sdk:
+        specifier: ^0.11.2
+        version: 0.11.2
+    devDependencies:
+      '@types/node':
+        specifier: ^18.16.2
+        version: 18.17.4
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^6.0.0
+        version: 6.7.2(@typescript-eslint/parser@6.7.2)(eslint@8.47.0)(typescript@4.9.5)
+      '@typescript-eslint/parser':
+        specifier: ^6.0.0
+        version: 6.7.2(eslint@8.47.0)(typescript@4.9.5)
+      ava:
+        specifier: ^5.2.0
+        version: 5.3.1
+      eslint:
+        specifier: ^8.39.0
+        version: 8.47.0
+      eslint-config-prettier:
+        specifier: ^9.0.0
+        version: 9.0.0(eslint@8.47.0)
+      eslint-plugin-prettier:
+        specifier: ^5.0.0
+        version: 5.0.0(eslint-config-prettier@9.0.0)(eslint@8.47.0)(prettier@3.0.3)
+      prettier:
+        specifier: ^3.0.0
+        version: 3.0.3
+      ts-mockito:
+        specifier: ^2.6.1
+        version: 2.6.1
+      typescript:
+        specifier: ^4.9.5
+        version: 4.9.5
+      zod:
+        specifier: ^3.22.2
+        version: 3.22.2
+
   packages/runtime:
     dependencies:
       '@commander-js/extra-typings':
         specifier: ^11.0.0
         version: 11.0.0(commander@11.0.0)
+      '@docmaps/http-client':
+        specifier: workspace:^0.1.0
+        version: link:../http-client
       '@rdfjs/data-model':
         specifier: ^2.0.1
         version: 2.0.1
@@ -1021,7 +1067,7 @@ packages:
       read-pkg: 5.2.0
       registry-auth-token: 5.0.2
       semantic-release: 19.0.5
-      semver: 7.5.3
+      semver: 7.5.4
       tempy: 1.0.1
     dev: true
 
