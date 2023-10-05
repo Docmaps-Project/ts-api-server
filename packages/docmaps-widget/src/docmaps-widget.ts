@@ -69,7 +69,7 @@ export class DocmapsWidget extends LitElement {
       "json",
     );
 
-    return html` <pre><code class="language-json">${unsafeHTML(
+    return html`<pre><code class="language-json">${unsafeHTML(
       highlightedJson,
     )}</code></pre>`;
   }
