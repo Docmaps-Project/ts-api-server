@@ -10,6 +10,7 @@ import * as Prism from "prismjs";
 import "prismjs/components/prism-json.js";
 import { cssStyles } from "./custom-css";
 import * as dagreD3 from "dagre-d3";
+import * as Dagre from "dagre";
 import * as d3 from "d3";
 
 @customElement("docmaps-widget")
@@ -35,8 +36,7 @@ export class DocmapsWidget extends LitElement {
   }
 
   initialRender() {
-    return html`
-    `;
+    return html``;
   }
 
   pendingRender() {
@@ -44,13 +44,37 @@ export class DocmapsWidget extends LitElement {
   }
 
   renderAfterLoad({ rawDocmap, steps, graph, docmapId }: FetchDocmapResult) {
-    const formattedRaw = JSON.stringify(rawDocmap, null, 2);
-    const formattedParsed = Prism.highlight(
-      JSON.stringify(steps, null, 2),
+    this.drawGraph(graph);
+
+    return html`
+      <h3>Docmap ID: ${docmapId}</h3>
+
+      <details>
+        <summary>Raw Docmap</summary>
+        ${this.formatJson(rawDocmap)}
+      </details>
+      <br />
+      <br />
+      <details>
+        <summary>Parsed Docmap with ${steps.length} steps</summary>
+        ${this.formatJson(steps)}
+      </details>
+    `;
+  }
+
+  formatJson(json: any) {
+    const highlightedJson = Prism.highlight(
+      JSON.stringify(json, null, 2),
       Prism.languages.json,
       "json",
     );
 
+    return html` <pre><code class="language-json">${unsafeHTML(
+      highlightedJson,
+    )}</code></pre>`;
+  }
+
+  private drawGraph(graph: Dagre.graphlib.Graph) {
     const render = new dagreD3.render();
 
     // Get the element we're going to draw the graph inside of
@@ -62,19 +86,13 @@ export class DocmapsWidget extends LitElement {
       throw new Error("SVG element not found");
     }
     const svg = d3.select(svgElement);
+    // remove any existing graph. This keeps us from drawing a graph on top of another graph
     svg.select("g").remove();
-
 
     // Run the renderer on the SVG group and graph
     const svgGroup = svg.append("g");
     // @ts-ignore
     render(svgGroup, graph);
-
-    // set up zoom
-    // var zoom = d3.zoom().on("zoom", function () {
-    //   inner.attr("transform", d3.event.transform);
-    // });
-    // svg.call(zoom);
 
     // Set height and width
     const graphLabel = graph.graph();
@@ -85,23 +103,6 @@ export class DocmapsWidget extends LitElement {
       const width = graphLabel.width ?? 0;
       svg.attr("widgth", width + 20);
     }
-
-    return html`
-      <h3>Displaying Docmap for id: ${docmapId}</h3>
-
-      <details>
-        <summary>Raw Docmap</summary>
-        <pre>${formattedRaw}</pre>
-      </details>
-      <br />
-      <br />
-      <details>
-        <summary>Parsed Docmap with ${steps.length} steps</summary>
-        <pre><code class="language-json">${unsafeHTML(
-          formattedParsed,
-        )}</code></pre>
-      </details>
-    `;
   }
 
   errorRender(err: unknown) {
@@ -121,8 +122,12 @@ export class DocmapsWidget extends LitElement {
       <br /><br />
       <p>Example docmaps:</p>
       <ul>
-        <li>https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v1/by-publisher/elife/get-by-doi?preprint_doi=10.1101%2F2022.11.08.515698</li>
-        <li>https://sciety.org/docmaps/v1/articles/10.21203/rs.3.rs-3171736/v1/rapid-reviews-covid-19.docmap.json</li>
+        <li>
+          https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v1/by-publisher/elife/get-by-doi?preprint_doi=10.1101%2F2022.11.08.515698
+        </li>
+        <li>
+          https://sciety.org/docmaps/v1/articles/10.21203/rs.3.rs-3171736/v1/rapid-reviews-covid-19.docmap.json
+        </li>
       </ul>
       <input
         id="doi-input"
