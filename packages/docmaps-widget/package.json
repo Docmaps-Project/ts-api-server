@@ -1,5 +1,5 @@
 {
-  "name": "@docmaps/widget",
+  "name": "@docmaps/widget-spike",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,15 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "docmaps-sdk": "^0.13.1",
-    "fp-ts": "^2.14.0",
+    "@docmaps/http-client": "workspace:^0.1.0",
     "@lit-labs/task": "^3.0.2",
     "d3": "^7.8.5",
     "dagre": "^0.8.5",
     "dagre-d3": "^0.6.4",
+    "docmaps-sdk": "^0.13.1",
+    "fp-ts": "^2.14.0",
     "lit": "^2.7.6",
-    "prismjs": "^1.29.0",
-    "@docmaps/http-client": "workspace:^0.1.0"
+    "prismjs": "^1.29.0"
   },
   "devDependencies": {
     "@types/d3": "^7.4.1",
@@ -25,6 +25,14 @@
     "@types/dagre-d3": "^0.6.4",
     "@types/prismjs": "^1.26.1",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
-  }
+    "vite": "^4.4.5",
+    "vite-plugin-dts": "^3.6.0"
+  },
+  "license": "ISC",
+  "files": [
+    "dist/",
+    "README.md",
+    "package.json",
+    "tsconfig.json"
+  ]
 }
