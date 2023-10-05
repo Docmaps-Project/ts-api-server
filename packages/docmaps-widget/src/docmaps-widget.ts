@@ -39,7 +39,7 @@ export class DocmapsWidget extends LitElement {
 
   #docmapController = new DocmapsFetchingController(this);
 
-  static override styles = [cssStyles];
+  static styles = [cssStyles];
 
   handleButtonClick() {
     const input =
