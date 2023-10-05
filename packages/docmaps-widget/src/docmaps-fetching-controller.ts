@@ -48,10 +48,8 @@ export class DocmapsFetchingController {
           });
 
           const resp = await client.getDocmapById({
-            // params: { id: encodeURI(encodeURIComponent(testIri)) },
             params: { id: encodeURI(encodeURIComponent(docmapId)) },
           });
-          console.log("response", resp);
 
           if (resp.status !== 200) {
             throw new Error("Failed to FETCH docmap");
@@ -59,10 +57,6 @@ export class DocmapsFetchingController {
 
           rawDocmap = resp.body as D.DocmapT;
 
-          // const docmapUrl: string = `https://raw.githubusercontent.com/Docmaps-Project/docmaps/main/examples/docmaps-example-elife-02.jsonld`;
-          // const response = await fetch(docmapUrl);
-          // const rawDocmapArray = await response.json();
-          // rawDocmap = rawDocmapArray[0];
         } catch {
           throw new Error("Failed to FETCH docmap");
         }

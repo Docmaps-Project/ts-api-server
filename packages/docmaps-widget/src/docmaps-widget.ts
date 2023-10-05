@@ -62,7 +62,8 @@ export class DocmapsWidget extends LitElement {
       throw new Error("SVG element not found");
     }
     const svg = d3.select(svgElement);
-    // const inner = svg.select("g");
+    svg.select("g").remove();
+
 
     // Run the renderer on the SVG group and graph
     const svgGroup = svg.append("g");
@@ -77,10 +78,8 @@ export class DocmapsWidget extends LitElement {
 
     // Set height and width
     const graphLabel = graph.graph();
-    console.log(graph.nodes())
     if (graphLabel) {
       const height = graphLabel.height ?? 0;
-      console.log("height", height);
       svg.attr("height", height + 40);
 
       const width = graphLabel.width ?? 0;
