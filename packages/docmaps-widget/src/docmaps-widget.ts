@@ -35,12 +35,7 @@ export class DocmapsWidget extends LitElement {
   }
 
   initialRender() {
-    return html`<p>Enter a doi to display docmap</p>
-    <p>Some examples:</p>
-    <ul>
-      <li>https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v1/by-publisher/elife/get-by-doi?preprint_doi=10.1101%2F2022.11.08.515698</li>
-      <li>https://sciety.org/docmaps/v1/articles/10.21203/rs.3.rs-3171736/v1/rapid-reviews-covid-19.docmap.json</li>
-    </ul>
+    return html`
     `;
   }
 
@@ -82,13 +77,18 @@ export class DocmapsWidget extends LitElement {
 
     // Set height and width
     const graphLabel = graph.graph();
+    console.log(graph.nodes())
     if (graphLabel) {
-      svg.attr("height", (graphLabel.height ?? 0) + 40);
-      svg.attr("widgth", (graphLabel.width ?? 0) + 20);
+      const height = graphLabel.height ?? 0;
+      console.log("height", height);
+      svg.attr("height", height + 40);
+
+      const width = graphLabel.width ?? 0;
+      svg.attr("widgth", width + 20);
     }
 
     return html`
-      <h2>Displaying Docmap for id: ${docmapId}</h2>
+      <h3>Displaying Docmap for id: ${docmapId}</h3>
 
       <details>
         <summary>Raw Docmap</summary>
@@ -120,10 +120,15 @@ export class DocmapsWidget extends LitElement {
         error: this.errorRender.bind(this),
       })}
       <br /><br />
+      <p>Example docmaps:</p>
+      <ul>
+        <li>https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v1/by-publisher/elife/get-by-doi?preprint_doi=10.1101%2F2022.11.08.515698</li>
+        <li>https://sciety.org/docmaps/v1/articles/10.21203/rs.3.rs-3171736/v1/rapid-reviews-covid-19.docmap.json</li>
+      </ul>
       <input
         id="doi-input"
         type="text"
-        placeholder="Enter DOI"
+        placeholder="Docmap ID"
         .value="${this.id}"
       />
       <button @click="${this.handleButtonClick}">Fetch Docmap</button>

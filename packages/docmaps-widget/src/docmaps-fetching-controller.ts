@@ -1,12 +1,12 @@
 import { ReactiveControllerHost } from "lit";
 import { initialState, StatusRenderer, Task } from "@lit-labs/task";
-import { Docmap, DocmapT, StepT } from "docmaps-sdk";
+import * as D from "docmaps-sdk";
+import { ActionT, Docmap, DocmapT, StepT, ThingT } from "docmaps-sdk";
 import * as E from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
-import {MakeHttpClient} from "@docmaps/http-client";
+import { MakeHttpClient } from "@docmaps/http-client";
 
 import * as Dagre from "dagre";
-import * as D from "docmaps-sdk";
 
 export interface FetchDocmapResult {
   rawDocmap: any;
@@ -50,14 +50,14 @@ export class DocmapsFetchingController {
           const resp = await client.getDocmapById({
             // params: { id: encodeURI(encodeURIComponent(testIri)) },
             params: { id: encodeURI(encodeURIComponent(docmapId)) },
-          })
+          });
+          console.log("response", resp);
 
           if (resp.status !== 200) {
             throw new Error("Failed to FETCH docmap");
           }
 
-          rawDocmap = resp.body as D.DocmapT
-
+          rawDocmap = resp.body as D.DocmapT;
 
           // const docmapUrl: string = `https://raw.githubusercontent.com/Docmaps-Project/docmaps/main/examples/docmaps-example-elife-02.jsonld`;
           // const response = await fetch(docmapUrl);
@@ -135,6 +135,26 @@ type DisplayObject = {
   url?: URL;
 };
 
+function thingToDisplayObject(output: ThingT): DisplayObject {
+  const type = Array.isArray(output.type) ? output.type[0] : output.type;
+  let published: string | undefined = undefined;
+  if (output.published) {
+    if (output.published instanceof Date) {
+      published = formatDate(output.published);
+    } else {
+      published = output.published;
+    }
+  }
+
+  return {
+    type,
+    published,
+    doi: output.doi,
+    id: output.id,
+    url: output.url,
+  };
+}
+
 function makeGraph(_doi: string, steps: StepT[]): Dagre.graphlib.Graph {
   const graph = new Dagre.graphlib.Graph();
   graph.setGraph({ nodesep: 20 });
@@ -144,13 +164,33 @@ function makeGraph(_doi: string, steps: StepT[]): Dagre.graphlib.Graph {
 
   const nodes: { [id: string]: DisplayObject } = {};
 
-  for (const step of steps) {
-    for (const action of step.actions) {
-      for (const output of action.outputs) {
-        const thisId = output.doi || output.id;
+  steps.forEach((step) => {
+    const inputIds: string[] = step.inputs.map(
+      (input: ThingT) => {
+        let thisId = input.doi || input.id || generateRandomId();
+        const node = thingToDisplayObject(input);
 
-        if (!thisId || seenDois.has(thisId)) {
-          continue;
+        if (!seenDois.has(thisId)) {
+          nodes[thisId] = node;
+        }
+
+        if (input.doi) {
+          seenDois.add(input.doi);
+        }
+        if (input.id) {
+          seenDois.add(input.id);
+        }
+
+        return thisId;
+      },
+    );
+
+    step.actions.forEach((action: ActionT) => {
+      action.outputs.forEach((output: ThingT) => {
+        const outputId = output.doi || output.id || generateRandomId();
+
+        if (!seenDois.has(outputId)) {
+          nodes[outputId] = thingToDisplayObject(output);
         }
 
         if (output.doi) {
@@ -160,33 +200,12 @@ function makeGraph(_doi: string, steps: StepT[]): Dagre.graphlib.Graph {
           seenDois.add(output.id);
         }
 
-        const type = Array.isArray(output.type) ? output.type[0] : output.type;
-        let published: string | undefined = undefined;
-        if (output.published) {
-          if (output.published instanceof Date) {
-            published = formatDate(output.published);
-          } else {
-            published = output.published;
-          }
-        }
-
-        nodes[thisId] = {
-          type,
-          published,
-          doi: output.doi,
-          id: output.id,
-          url: output.url,
-        };
-
-        for (const input of step.inputs) {
-          const inputId = input.doi || input.id;
-          if (inputId) {
-            graph.setEdge(inputId, thisId);
-          }
-        }
-      }
-    }
-  }
+        inputIds.forEach((inputId) => {
+          graph.setEdge(inputId, outputId);
+        });
+      });
+    });
+  });
 
   for (const [id, node] of Object.entries(nodes)) {
     const label = Object.entries(node).reduce((acc, [_k, v]) => {
@@ -229,4 +248,15 @@ function formatDate(date: Date) {
   }
 
   return yyyy + "-" + mm + "-" + dd;
+}
+
+function dec2hex(dec: any) {
+  return dec.toString(16).padStart(2, "0");
+}
+
+function generateRandomId(): string {
+  const numCharacters = 40;
+  var arr = new Uint8Array(numCharacters / 2);
+  window.crypto.getRandomValues(arr);
+  return Array.from(arr, dec2hex).join("");
 }
