@@ -231,17 +231,17 @@ function formatDate(date: Date) {
   const day = date.getDate();
 
   // Convert month and day numbers to strings and prefix them with a zero if they're below 10
-  let monthString = month.toString();
+  let mm = month.toString();
   if (month < 10) {
-    monthString = "0" + month;
+    mm = "0" + month;
   }
 
-  let dayString = day.toString();
+  let dd = day.toString();
   if (day < 10) {
-    dayString = "0" + day.toString();
+    dd = "0" + day.toString();
   }
 
-  return yyyy + "-" + monthString + "-" + dayString;
+  return yyyy + "-" + mm + "-" + dd;
 }
 
 function dec2hex(dec: any) {
