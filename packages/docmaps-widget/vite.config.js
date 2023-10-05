@@ -9,7 +9,7 @@ export default defineConfig({
       name: "DocmapsWidgetSpike",
       // the proper extensions will be added
       formats: ["es"],
-      fileName: "docmaps-widget-spike"
+      fileName: "index"
     },
     rollupOptions: {},
   },
