@@ -1,4 +1,3 @@
-// dummy comment
 export type ApiInfo = {
   api_url: string
   api_version: string
