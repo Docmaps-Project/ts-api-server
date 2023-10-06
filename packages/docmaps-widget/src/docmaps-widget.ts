@@ -24,6 +24,7 @@ const knownDocmapIds: string[] = [
   // "https://sciety.org/docmaps/v1/articles/10.21203/rs.3.rs-871965/v1/ncrc.docmap.json",
   // "https://sciety.org/docmaps/v1/articles/10.21203/rs.3.rs-789831/v1/prereview.docmap.json",
   // "https://sciety.org/docmaps/v1/articles/10.21203/rs.3.rs-734203/v1/prereview.docmap.json",
+  // // the one below never works:
   // "https://sciety.org/docmaps/v1/articles/10.21203/rs.3.rs-420780/v1/prereview.docmap.json",
 ]
 
