@@ -43,8 +43,8 @@ importers:
   packages/docmaps-widget:
     dependencies:
       '@docmaps/http-client':
-        specifier: 1.3.0
-        version: 1.3.0
+        specifier: workspace:^0.1.0
+        version: link:../http-client
       '@lit-labs/task':
         specifier: ^3.0.2
         version: 3.0.2
@@ -364,18 +364,6 @@ packages:
       undici: 5.23.0
     transitivePeerDependencies:
       - web-streams-polyfill
-    dev: false
-
-  /@docmaps/http-client@1.3.0:
-    resolution: {integrity: sha512-N6/w/sLZj70+MvhfJcdwAbwYj5amqJWg1PR+4mPumJGOTLvG4Q2FJyJ5CsRfVd1j9PUjB+hE5RxlrAOkzlHKoQ==}
-    engines: {node: '>=18.18.0'}
-    dependencies:
-      '@ts-rest/core': 3.30.2(zod@3.22.2)
-      '@tsconfig/node-lts-strictest-esm': 18.12.1
-      docmaps-sdk: 0.13.1
-    transitivePeerDependencies:
-      - web-streams-polyfill
-      - zod
     dev: false
 
   /@esbuild-kit/cjs-loader@2.4.2:
