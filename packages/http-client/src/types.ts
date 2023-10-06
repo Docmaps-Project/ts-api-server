@@ -1,3 +1,4 @@
+// Info of the API
 export type ApiInfo = {
   api_url: string
   api_version: string
