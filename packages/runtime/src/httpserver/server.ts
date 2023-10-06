@@ -8,6 +8,7 @@ import { OxigraphInmemBackend } from '../adapter/oxigraph_inmem'
 import { SparqlAdapter, SparqlFetchBackend } from '../adapter'
 import { isLeft } from 'fp-ts/lib/Either'
 import { BackendAdapter } from '../types'
+import cors from 'cors'
 
 export type ServerConfig = {
   server: {
@@ -52,6 +53,9 @@ export class HttpServer {
     this.api = new ApiInstance(adapter, new URL(config.server.apiUrl))
 
     this.app = express()
+
+    // TODO Allow CORS to be configured in production
+    this.app.use(cors())
 
     // app.use(bodyParser.urlencoded({ extended: false }))
     // app.use(bodyParser.json())

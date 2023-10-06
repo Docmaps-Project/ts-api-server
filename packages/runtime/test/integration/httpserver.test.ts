@@ -17,6 +17,7 @@ test.serial('it serves info endpoint', async (t) => {
     const info = await client.getInfo()
 
     t.is(info.status, 200)
+    t.is(info.headers.get('Access-Control-Allow-Origin'), '*')
     t.deepEqual(info.body, {
       api_url: 'http://localhost:33033/docmaps/v1/',
       api_version: API_VERSION,
