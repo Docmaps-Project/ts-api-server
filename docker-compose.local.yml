@@ -17,4 +17,4 @@ services:
       DM_BACKEND_TYPE: sparql-endpoint
       DM_BACKEND_SPARQL_ENDPOINT_URL: http://oxigraph:7878/query
     ports:
-      - 8080:8080
+      - 9001:8080 # host:container

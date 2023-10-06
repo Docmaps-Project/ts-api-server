@@ -13,7 +13,7 @@ import * as dagreD3 from "dagre-d3";
 import * as Dagre from "dagre";
 import * as d3 from "d3";
 
-const knownDocmapIds: string[] = [
+// const knownDocmapIds: string[] = [
   // "https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v1/by-publisher/elife/get-by-doi?preprint_doi=10.1101%2F2022.11.08.515698",
   // "https://sciety.org/docmaps/v1/articles/10.21203/rs.3.rs-3171736/v1/rapid-reviews-covid-19.docmap.json",
   // "https://sciety.org/docmaps/v1/articles/10.21203/rs.3.rs-1020603/v1/prereview.docmap.json",
@@ -25,8 +25,8 @@ const knownDocmapIds: string[] = [
   // "https://sciety.org/docmaps/v1/articles/10.21203/rs.3.rs-789831/v1/prereview.docmap.json",
   // "https://sciety.org/docmaps/v1/articles/10.21203/rs.3.rs-734203/v1/prereview.docmap.json",
   // // the one below never works:
-  // "https://sciety.org/docmaps/v1/articles/10.21203/rs.3.rs-420780/v1/prereview.docmap.json",
-]
+  // // "https://sciety.org/docmaps/v1/articles/10.21203/rs.3.rs-420780/v1/prereview.docmap.json",
+// ]
 
 @customElement("docmaps-widget")
 export class DocmapsWidget extends LitElement {
@@ -135,10 +135,6 @@ export class DocmapsWidget extends LitElement {
         error: this.errorRender.bind(this),
       })}
       <br /><br />
-      <p>Example docmaps:</p>
-      <ul>
-        ${knownDocmapIds.map((id) => html`<li>${id}</li>`)}
-      </ul>
       <input
         id="doi-input"
         type="text"
