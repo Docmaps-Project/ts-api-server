@@ -1,4 +1,4 @@
-<https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v1/get-by-doi?preprint_doi=10.1101%2F2022.11.08.515698> <http://purl.org/dc/terms/created> "2022-11-28T11:30:05+00:00"^^<http://www.w3.org/2001/XMLSchema#date> .
+<https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v1/get-by-doi?preprint_doi=10.1101%2F2022.11.08.515698> <http://purl.org/dc/terms/created> "2022-12-28T11:30:05+00:00"^^<http://www.w3.org/2001/XMLSchema#date> .
 <https://sciety.org/groups/elife> <http://xmlns.com/foaf/0.1/accountServiceHomepage> "https://sciety.org" .
 <https://elifesciences.org/> <http://xmlns.com/foaf/0.1/logo> "https://sciety.org/static/groups/elife--b560187e-f2fb-4ff9-a861-a204f3fc0fb0.png" .
 <https://elifesciences.org/> <http://xmlns.com/foaf/0.1/name> "eLife" .

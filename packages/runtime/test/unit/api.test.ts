@@ -100,5 +100,7 @@ test('docmap_for: consults the adapter', async (t) => {
     10,
   ).get_docmap_for_thing(spec)()
 
+  // TODO awkward use of `await .. ()`, is there a more natural way?
+  // The alternative is all that `rightAnd` business in docmaps-sdk
   t.deepEqual(res, await TE.of(dm_content)())
 })

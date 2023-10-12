@@ -3,12 +3,13 @@ import { CONSTRUCT, Construct, Describe } from '@tpluscode/sparql-builder'
 import { VALUES } from '@tpluscode/sparql-builder/expressions'
 import * as D from 'docmaps-sdk'
 import * as TE from 'fp-ts/lib/TaskEither'
+import * as T from 'fp-ts/lib/Task'
 import * as E from 'fp-ts/lib/Either'
+import * as A from 'fp-ts/lib/Array'
 import n3 from 'n3'
 import { collect } from 'streaming-iterables'
 import { pipe } from 'fp-ts/lib/pipeable'
 import factory from '@rdfjs/data-model'
-import { Set } from 'immutable'
 import { BackendAdapter, ThingSpec } from '../types'
 import util from 'util'
 
@@ -102,6 +103,31 @@ function DocmapForThingDoiQuery(doi: string): Construct {
   return q
 }
 
+function docmapIrisFromStore(store: n3.Store): Array<string> {
+  const dmTypeQs = store.getSubjects(
+    factory.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+    factory.namedNode('http://purl.org/spar/pwo/Workflow'),
+    null,
+  )
+
+  return dmTypeQs.map((s) => s.value)
+}
+
+// TODO: consider writing this as functional on sub-subgraphs. Performance motivations.
+// Currently in cases of lists, we process all the docmaps then filter
+const docmapMatching: (s: n3.Store) => (iri: string) => TE.TaskEither<Error, D.DocmapT> =
+  (
+    store: n3.Store,
+    // maxDepth: number = -1,
+  ) =>
+  (iri: string) => {
+    return new D.TypedGraph().pickStreamWithCodec(
+      { ...D.DocmapNormalizedFrame, id: iri },
+      D.Docmap,
+      store.match(),
+    )
+  }
+
 export class SparqlAdapter implements BackendAdapter {
   q: SparqlProcessor
 
@@ -128,8 +154,7 @@ export class SparqlAdapter implements BackendAdapter {
           : E.left(new Error('content not found for queried DOI'))
       }),
       TE.map((quads: Array<RDF.Quad>) => {
-        const deduped = [...Set(quads)] //TODO: ineffective, because WASM implements this structure as just `{__wbg_ptr}` which is always unique
-        return new n3.Store(deduped).match()
+        return new n3.Store(quads).match()
       }),
       TE.chain((stream: RDF.Stream) =>
         g.pickStreamWithCodec(D.DocmapNormalizedFrame, D.Docmap, stream),
@@ -150,8 +175,6 @@ export class SparqlAdapter implements BackendAdapter {
         query = DocmapForThingDoiQuery(thing.identifier)
     }
 
-    const g = new D.TypedGraph()
-
     const program = pipe(
       this.q.triples(query),
       TE.chain((iter) =>
@@ -165,14 +188,26 @@ export class SparqlAdapter implements BackendAdapter {
           ? E.right(quads)
           : E.left(new Error('content not found for queried DOI'))
       }),
-      TE.map((quads: Array<RDF.Quad>) => {
-        const deduped = [...Set(quads)] //TODO: ineffective, because WASM implements this structure as just `{__wbg_ptr}` which is always unique
-        const copy = new n3.Store(deduped)
-        return new n3.Store(deduped).match()
+      TE.chain((quads: Array<RDF.Quad>) => {
+        const store = new n3.Store(quads)
+        return pipe(
+          store,
+          docmapIrisFromStore,
+          A.map(docmapMatching(store)),
+          A.sequence(T.ApplicativePar),
+          T.map(A.separate),
+          T.map((separated) => {
+            const first = separated.right[0]
+            if (!first) {
+              return E.left(
+                new Error(`no success cases: ${util.inspect(separated.left, { depth: 6 })}`),
+              )
+            }
+
+            return E.right(separated.right.reduce((m, a) => (a.created > m.created ? a : m), first))
+          }),
+        )
       }),
-      TE.chain((stream: RDF.Stream) =>
-        g.pickStreamWithCodec(D.DocmapNormalizedFrame, D.Docmap, stream),
-      ),
     )
 
     return program
