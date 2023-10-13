@@ -12,6 +12,7 @@ import { pipe } from 'fp-ts/lib/pipeable'
 import factory from '@rdfjs/data-model'
 import { BackendAdapter, ThingSpec } from '../types'
 import util from 'util'
+import { Separated } from 'fp-ts/lib/Separated'
 
 /** Inteface for an in-memory or over-the-web mechanism that accepts
  * SPARQL queries and returns triples.
@@ -195,8 +196,8 @@ export class SparqlAdapter implements BackendAdapter {
           docmapIrisFromStore,
           A.map(docmapMatching(store)),
           A.sequence(T.ApplicativePar),
-          T.map(A.separate),
-          T.map((separated) => {
+          T.map<E.Either<Error, D.DocmapT>[], Separated<Error[], D.DocmapT[]>>(A.separate),
+          T.map((separated: Separated<Error[], D.DocmapT[]>) => {
             const first = separated.right[0]
             if (!first) {
               return E.left(

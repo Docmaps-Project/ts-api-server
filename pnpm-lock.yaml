@@ -101,7 +101,7 @@ importers:
         version: 2.0.0
       '@tpluscode/sparql-builder':
         specifier: ^0.3.31
-        version: 0.3.31(@zazuko/rdf-vocabularies@2023.1.19)(clownface@1.5.1)(safe-identifier@0.4.2)(sparql-http-client@2.4.2)(ts-morph@19.0.0)(ts-node@10.9.1)
+        version: 0.3.31(@zazuko/rdf-vocabularies@2023.1.19)(clownface@1.5.1)(safe-identifier@0.4.2)(sparql-http-client@2.4.2)(ts-morph@20.0.0)(ts-node@10.9.1)
       '@ts-rest/core':
         specifier: ^3.30.2
         version: 3.30.2(zod@3.22.2)
@@ -121,8 +121,8 @@ importers:
         specifier: ^2.8.5
         version: 2.8.5
       docmaps-sdk:
-        specifier: ^0.11.2
-        version: 0.11.2
+        specifier: ^0.14.0
+        version: 0.14.0
       express:
         specifier: ^4.18.2
         version: 4.18.2
@@ -278,7 +278,7 @@ packages:
     dependencies:
       ky: 0.33.3
       ky-universal: 0.11.0(ky@0.33.3)
-      undici: 5.23.0
+      undici: 5.26.3
     transitivePeerDependencies:
       - web-streams-polyfill
     dev: false
@@ -513,6 +513,11 @@ packages:
     resolution: {integrity: sha512-P6omY1zv5MItm93kLM8s2vr1HICJH8v0dvddDhysbIuZ+vcjOHg5Zbkf1mTkcmi2JA9oBG2anOkRnW8WJTS8Og==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@fastify/busboy@2.0.0:
+    resolution: {integrity: sha512-JUFJad5lv7jxj926GPgymrWQxxjPYuJNiNjNMzqT+HiuP6Vl3dk5xzG+8sTX96np0ZAluvaMzPsjhHZ5rNuNQQ==}
+    engines: {node: '>=14'}
+    dev: false
 
   /@humanwhocodes/config-array@0.11.10:
     resolution: {integrity: sha512-KVVjQmNUepDVGXNuoRRdmmEjruj0KfiGSbS8LVc12LMsWDQzRXJ0qdhN8L8uUigKpfEHRhlaQFY0ib1tnUbNeQ==}
@@ -925,7 +930,7 @@ packages:
     resolution: {integrity: sha512-HP5DCmhyfVuQuk58AO5vzNY+dIFVHe2oHY8NX2K+3XmrTmu/yzrFzPbDeU9Cwr71XC4RifEMoksIg+8jnhxmfQ==}
     dependencies:
       '@rdfjs/sink': 2.0.0
-      jsonld: 8.2.0
+      jsonld: 8.3.1
       readable-stream: 4.4.2
       stream-chunks: 1.0.0
     transitivePeerDependencies:
@@ -1110,7 +1115,7 @@ packages:
       defer-to-connect: 1.1.3
     dev: true
 
-  /@tpluscode/rdf-ns-builders@2.0.1(@zazuko/rdf-vocabularies@2023.1.19)(clownface@1.5.1)(safe-identifier@0.4.2)(ts-morph@19.0.0)(ts-node@10.9.1):
+  /@tpluscode/rdf-ns-builders@2.0.1(@zazuko/rdf-vocabularies@2023.1.19)(clownface@1.5.1)(safe-identifier@0.4.2)(ts-morph@20.0.0)(ts-node@10.9.1):
     resolution: {integrity: sha512-P/pwfjhcj/JOZF3epheHiDd/f9tSkceydQBqBuqThpNX2NIg+4BSgwtG2YfKBa24mmGFfyzN6RVeFclhA8wZBw==}
     hasBin: true
     peerDependencies:
@@ -1128,17 +1133,17 @@ packages:
       commander: 7.2.0
       fs-extra: 10.1.0
       safe-identifier: 0.4.2
-      ts-morph: 19.0.0
+      ts-morph: 20.0.0
       ts-node: 10.9.1(@types/node@18.17.4)(typescript@4.9.5)
     dev: false
 
-  /@tpluscode/rdf-string@0.2.27(clownface@1.5.1)(safe-identifier@0.4.2)(ts-morph@19.0.0)(ts-node@10.9.1):
+  /@tpluscode/rdf-string@0.2.27(clownface@1.5.1)(safe-identifier@0.4.2)(ts-morph@20.0.0)(ts-node@10.9.1):
     resolution: {integrity: sha512-+h7FdEE9AwP+B0kA2u0lScWq0+wIfpAcsau6cHZRQfToTCQjq+xo5eyGqzC96SmVfULl73DHys5DE/VOtA3Ewg==}
     dependencies:
       '@rdf-esm/data-model': 0.5.4
       '@rdf-esm/term-map': 0.5.1
       '@rdfjs/types': 1.1.0
-      '@tpluscode/rdf-ns-builders': 2.0.1(@zazuko/rdf-vocabularies@2023.1.19)(clownface@1.5.1)(safe-identifier@0.4.2)(ts-morph@19.0.0)(ts-node@10.9.1)
+      '@tpluscode/rdf-ns-builders': 2.0.1(@zazuko/rdf-vocabularies@2023.1.19)(clownface@1.5.1)(safe-identifier@0.4.2)(ts-morph@20.0.0)(ts-node@10.9.1)
       '@zazuko/rdf-vocabularies': 2023.1.19
     transitivePeerDependencies:
       - clownface
@@ -1147,7 +1152,7 @@ packages:
       - ts-node
     dev: false
 
-  /@tpluscode/sparql-builder@0.3.31(@zazuko/rdf-vocabularies@2023.1.19)(clownface@1.5.1)(safe-identifier@0.4.2)(sparql-http-client@2.4.2)(ts-morph@19.0.0)(ts-node@10.9.1):
+  /@tpluscode/sparql-builder@0.3.31(@zazuko/rdf-vocabularies@2023.1.19)(clownface@1.5.1)(safe-identifier@0.4.2)(sparql-http-client@2.4.2)(ts-morph@20.0.0)(ts-node@10.9.1):
     resolution: {integrity: sha512-Q5D5sdo2hx2yfP/8mf6B2vEFJydpC/2qVqZqsl8jyFys8CYVGQY8+JcbiiLwZsxgQ4rJOrsf6hxjtlaOKggLCA==}
     peerDependencies:
       sparql-http-client: ^2.2.0
@@ -1155,8 +1160,8 @@ packages:
       '@rdf-esm/data-model': 0.5.4
       '@rdf-esm/term-set': 0.5.0
       '@rdfjs/types': 1.1.0
-      '@tpluscode/rdf-ns-builders': 2.0.1(@zazuko/rdf-vocabularies@2023.1.19)(clownface@1.5.1)(safe-identifier@0.4.2)(ts-morph@19.0.0)(ts-node@10.9.1)
-      '@tpluscode/rdf-string': 0.2.27(clownface@1.5.1)(safe-identifier@0.4.2)(ts-morph@19.0.0)(ts-node@10.9.1)
+      '@tpluscode/rdf-ns-builders': 2.0.1(@zazuko/rdf-vocabularies@2023.1.19)(clownface@1.5.1)(safe-identifier@0.4.2)(ts-morph@20.0.0)(ts-node@10.9.1)
+      '@tpluscode/rdf-string': 0.2.27(clownface@1.5.1)(safe-identifier@0.4.2)(ts-morph@20.0.0)(ts-node@10.9.1)
       '@types/sparql-http-client': 2.2.8
       debug: 4.3.4
       sparql-http-client: 2.4.2
@@ -1169,8 +1174,8 @@ packages:
       - ts-node
     dev: false
 
-  /@ts-morph/common@0.20.0:
-    resolution: {integrity: sha512-7uKjByfbPpwuzkstL3L5MQyuXPSKdoNG93Fmi2JoDcTf3pEP731JdRFAduRVkOs8oqxPsXKA+ScrWkdQ8t/I+Q==}
+  /@ts-morph/common@0.21.0:
+    resolution: {integrity: sha512-ES110Mmne5Vi4ypUKrtVQfXFDtCsDXiUiGxF6ILVlE90dDD4fdpC1LSjydl/ml7xJWKSDZwUYD2zkOePMSrPBA==}
     dependencies:
       fast-glob: 3.3.1
       minimatch: 7.4.6
@@ -1878,13 +1883,6 @@ packages:
       run-applescript: 5.0.0
     dev: true
 
-  /busboy@1.6.0:
-    resolution: {integrity: sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==}
-    engines: {node: '>=10.16.0'}
-    dependencies:
-      streamsearch: 1.1.0
-    dev: false
-
   /bytes@3.1.2:
     resolution: {integrity: sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==}
     engines: {node: '>= 0.8'}
@@ -2446,8 +2444,9 @@ packages:
       path-type: 4.0.0
     dev: true
 
-  /docmaps-sdk@0.11.2:
-    resolution: {integrity: sha512-iKAdWWHW0aA+U759q8/di+7Ut27+lIP18yxfW2HPzBbUgq2AbqKzLCr7dAG1i3bFcOnCPJ2D0y//tGwGIJfbRQ==}
+  /docmaps-sdk@0.14.0:
+    resolution: {integrity: sha512-3F23bp+SEuxmO6PdwyO/Wqk+ABTvGnZ9Bqc2pOxx91z9n/hRmxQVb3PZkO3fvpZF6End1Ky+JL8sAKvkWE9T/w==}
+    engines: {node: '>=18.14.0'}
     dependencies:
       '@rdfjs/data-model': 2.0.1
       '@rdfjs/parser-n3': 2.0.1
@@ -2457,7 +2456,7 @@ packages:
       io-ts-types: 0.5.19(fp-ts@2.16.1)(io-ts@2.2.20)(monocle-ts@2.3.13)(newtype-ts@0.3.5)
       monocle-ts: 2.3.13(fp-ts@2.16.1)
       newtype-ts: 0.3.5(fp-ts@2.16.1)(monocle-ts@2.3.13)
-      rdf-ext: 2.2.0
+      rdf-ext: 2.3.0
       readable-stream: 4.4.2
     transitivePeerDependencies:
       - web-streams-polyfill
@@ -3215,6 +3214,13 @@ packages:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
 
+  /grapoi@1.0.2:
+    resolution: {integrity: sha512-YOlMOdFjFLURx268pV3rLMt9pDszbbxbYYUKRpGjbSJFt3ubxIOqB/70sl4o8mqmaW7OYvlY8jdilT9b5bs5qA==}
+    dependencies:
+      '@rdfjs/namespace': 2.0.0
+      '@rdfjs/term-set': 2.0.1
+    dev: false
+
   /handlebars@4.7.7:
     resolution: {integrity: sha512-aAcXm5OAfE/8IXkcZvCepKU3VzW1/39Fb5ZuqMtgI/hT8X2YgoMvBY5dLhq/cpOvw7Lk1nK/UF71aLG/ZnVYRA==}
     engines: {node: '>=0.4.7'}
@@ -3681,8 +3687,8 @@ packages:
       - encoding
     dev: true
 
-  /jsonld@8.2.0:
-    resolution: {integrity: sha512-qHUa9pn3/cdAZw26HY1Jmy9+sHOxaLrveTRWUcrSDx5apTa20bBTe+X4nzI7dlqc+M5GkwQW6RgRdqO6LF5nkw==}
+  /jsonld@8.3.1:
+    resolution: {integrity: sha512-tYfKpWL56meSJCHS91Ph0+EUThHZOZ8bKuboME4998SF+Kkukp2PhCPdRCvA7tsGUKr9FvSoyIRqJPuImBcBuA==}
     engines: {node: '>=14'}
     dependencies:
       '@digitalbazaar/http-client': 3.4.1
@@ -4800,8 +4806,8 @@ packages:
       readable-stream: 3.6.2
     dev: false
 
-  /rdf-ext@2.2.0:
-    resolution: {integrity: sha512-/6Z1VK+OdL4SQnxhzdN1CJJY7pmtTzh0BHLRgKQG9MPIN2SnYr/eymHxqcygcZ/YHqXAV7kl2aOFbn6u9P4Wgw==}
+  /rdf-ext@2.3.0:
+    resolution: {integrity: sha512-/2bPbKidKNBItZA/iYgQXMZncK2T9zCHkH+yFMCaRfOay0qmqo7yN7t+VIGObXimQ66EYNRQANo/EMXIPEz9eA==}
     dependencies:
       '@rdfjs/data-model': 2.0.1
       '@rdfjs/dataset': 2.0.1
@@ -4816,6 +4822,7 @@ packages:
       '@rdfjs/to-ntriples': 2.0.0
       '@rdfjs/traverser': 0.1.2
       clownface: 1.5.1
+      grapoi: 1.0.2
       readable-stream: 4.4.2
     dev: false
 
@@ -5409,11 +5416,6 @@ packages:
     engines: {node: '>=18'}
     dev: false
 
-  /streamsearch@1.1.0:
-    resolution: {integrity: sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==}
-    engines: {node: '>=10.0.0'}
-    dev: false
-
   /string-to-stream@3.0.1:
     resolution: {integrity: sha512-Hl092MV3USJuUCC6mfl9sPzGloA3K5VwdIeJjYIkXY/8K+mUvaeEabWJgArp+xXrsWxCajeT2pc4axbVhIZJyg==}
     dependencies:
@@ -5646,10 +5648,10 @@ packages:
       lodash: 4.17.21
     dev: true
 
-  /ts-morph@19.0.0:
-    resolution: {integrity: sha512-D6qcpiJdn46tUqV45vr5UGM2dnIEuTGNxVhg0sk5NX11orcouwj6i1bMqZIz2mZTZB1Hcgy7C3oEVhAT+f6mbQ==}
+  /ts-morph@20.0.0:
+    resolution: {integrity: sha512-JVmEJy2Wow5n/84I3igthL9sudQ8qzjh/6i4tmYCm6IqYyKFlNbJZi7oBdjyqcWSWYRu3CtL0xbT6fS03ESZIg==}
     dependencies:
-      '@ts-morph/common': 0.20.0
+      '@ts-morph/common': 0.21.0
       code-block-writer: 12.0.0
     dev: false
 
@@ -5768,11 +5770,11 @@ packages:
     dev: true
     optional: true
 
-  /undici@5.23.0:
-    resolution: {integrity: sha512-1D7w+fvRsqlQ9GscLBwcAJinqcZGHUKjbOmXdlE/v8BvEGXjeWAax+341q44EuTcHXXnfyKNbKRq4Lg7OzhMmg==}
+  /undici@5.26.3:
+    resolution: {integrity: sha512-H7n2zmKEWgOllKkIUkLvFmsJQj062lSm3uA4EYApG8gLuiOM0/go9bIoC3HVaSnfg4xunowDE2i9p8drkXuvDw==}
     engines: {node: '>=14.0'}
     dependencies:
-      busboy: 1.6.0
+      '@fastify/busboy': 2.0.0
     dev: false
 
   /unique-string@2.0.0:
