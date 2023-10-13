@@ -100,8 +100,14 @@ test.serial('it serves /docmap_for/doi endpoint', async (t) => {
       'https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v1/get-by-doi?preprint_doi=10.1101%2F2022.11.08.515698',
     )
     t.deepEqual(dm2.publisher, {
-      name: 'review commons',
-      url: 'https://reviewcommons.org/',
+      account: {
+        id: 'https://sciety.org/groups/elife',
+        service: 'https://sciety.org/',
+      },
+      homepage: 'https://elifesciences.org/',
+      id: 'https://elifesciences.org/',
+      logo: 'https://sciety.org/static/groups/elife--b560187e-f2fb-4ff9-a861-a204f3fc0fb0.png',
+      name: 'eLife',
     })
   }, t.log)
 })
