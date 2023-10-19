@@ -158,8 +158,8 @@ importers:
         specifier: ^4.17.17
         version: 4.17.17
       '@types/isomorphic-fetch':
-        specifier: ^0.0.36
-        version: 0.0.36
+        specifier: ^0.0.38
+        version: 0.0.38
       '@types/n3':
         specifier: ^1.16.0
         version: 1.16.0
@@ -1272,8 +1272,8 @@ packages:
       '@types/node': 18.17.4
     dev: true
 
-  /@types/isomorphic-fetch@0.0.36:
-    resolution: {integrity: sha512-ulw4d+vW1HKn4oErSmNN2HYEcHGq0N1C5exlrMM0CRqX1UUpFhGb5lwiom5j9KN3LBJJDLRmYIZz1ghm7FIzZw==}
+  /@types/isomorphic-fetch@0.0.38:
+    resolution: {integrity: sha512-DcXWx26qmt89lQ1Saoit0P38yHqT7fGceVs7UpMy2gU7AjEZISPdM7rqoFY5VHtl33H+cJ+VBDYmNRssTM4Zlw==}
     dev: true
 
   /@types/json-schema@7.0.12:
