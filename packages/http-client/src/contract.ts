@@ -21,6 +21,17 @@ export const contract = c.router({
     responses: {
       200: c.type<DocmapT>(),
     },
-    summary: 'Get information about this Docmaps API server',
+    summary: 'Get a docmap matching an IRI exactly',
+  },
+
+  getDocmapForDoi: {
+    method: 'GET',
+    path: '/docmap_for/doi',
+    query: c.type<{ subject: string }>(),
+    // TODO: id as arg?
+    responses: {
+      200: c.type<DocmapT>(),
+    },
+    summary: 'Get a docmap that describes a research artifact with this DOI',
   },
 })

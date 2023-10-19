@@ -14,7 +14,13 @@ export type ApiInfo = {
   }[]
 }
 
+export type ThingSpec = {
+  identifier: string
+  kind: 'iri' | 'doi'
+}
+
 // TODO is this the same as the Client?
 export interface BackendAdapter {
   docmapWithIri(iri: string): TE.TaskEither<Error, D.DocmapT>
+  docmapForThing(thing: ThingSpec): TE.TaskEither<Error, D.DocmapT>
 }
