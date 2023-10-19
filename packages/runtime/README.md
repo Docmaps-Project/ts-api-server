@@ -13,6 +13,8 @@ The package/server is structured like this:
 | SPARQL processor/adapter | converts Docmaps semantics to SPARQL and uses `docmaps-sdk` to make objects from triples | 
 | SPARQL triplestore | Anything that supports SPARQL is allowed, we supply easy access to [oxigraph](https://github.com/oxigraph/oxigraph) |
 
+Note that use of SPARQL is optional but you would be required to write your own `BackendAdapter` layer that translates
+domain logic into queries for your specific backend (such as a relational database).
 
 ## Development and Testing
 
@@ -20,7 +22,7 @@ See the readme in repository root for general info about this monorepo.
 
 Dependencies for local development include:
 
-```bash
+```
 pnpm
 docker # with docker-compose
 curl
@@ -34,8 +36,12 @@ pnpm test:unit
 pnpm test:integration
 ```
 
-If you have never done this before, the tests may timeout due to invoking a `docker pull` for the `oxigraph` image, which
+**WARN:** If you have never done this before, the tests may timeout due to invoking a `docker pull` for the `oxigraph` image, which
 is used for a local triplestore to use during integration tests.
+
+## Running locally with Docker and Oxigraph
+
+See the instructions in repository root. You can invoke workspace root scripts like `pnpm run -w compose:up` wihout changing directory.
 
 ### Misc
 
