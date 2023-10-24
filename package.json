@@ -19,7 +19,7 @@
     "@manypkg/cli": "^0.21.0",
     "@rdfjs/serializer-ntriples": "^2.0.0",
     "@tsconfig/node-lts-strictest-esm": "^18.12.1",
-    "@types/node": "^18.16.2",
+    "@types/node": "^20.0.0",
     "@types/rdfjs__serializer-ntriples": "^2.0.1",
     "axios": "^1.5.0",
     "jsonld-streaming-parser": "^3.2.1",

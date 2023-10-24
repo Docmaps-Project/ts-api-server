@@ -18,8 +18,8 @@ importers:
         specifier: ^18.12.1
         version: 18.12.1
       '@types/node':
-        specifier: ^18.16.2
-        version: 18.17.4
+        specifier: ^20.0.0
+        version: 20.8.8
       '@types/rdfjs__serializer-ntriples':
         specifier: ^2.0.1
         version: 2.0.1
@@ -52,8 +52,8 @@ importers:
         version: 0.11.3
     devDependencies:
       '@types/node':
-        specifier: ^18.16.2
-        version: 18.17.4
+        specifier: ^20.0.0
+        version: 20.8.8
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.0.0
         version: 6.7.2(@typescript-eslint/parser@6.7.2)(eslint@8.47.0)(typescript@4.9.5)
@@ -164,8 +164,8 @@ importers:
         specifier: ^1.16.0
         version: 1.16.0
       '@types/node':
-        specifier: ^18.16.2
-        version: 18.17.4
+        specifier: ^20.0.0
+        version: 20.8.8
       '@types/rdfjs__data-model':
         specifier: ^2.0.4
         version: 2.0.4
@@ -198,7 +198,7 @@ importers:
         version: 2.6.1
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.1(@types/node@18.17.4)(typescript@4.9.5)
+        version: 10.9.1(@types/node@20.8.8)(typescript@4.9.5)
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -999,7 +999,7 @@ packages:
   /@rdfjs/types@1.1.0:
     resolution: {integrity: sha512-5zm8bN2/CC634dTcn/0AhTRLaQRjXDZs3QfcAsQKNturHT7XVWcKy/8p3P5gXl+YkZTAmy7T5M/LyiT/jbkENw==}
     dependencies:
-      '@types/node': 18.17.4
+      '@types/node': 20.8.8
 
   /@rubensworks/saxes@6.0.1:
     resolution: {integrity: sha512-UW4OTIsOtJ5KSXo2Tchi4lhZqu+tlHrOAs4nNti7CrtB53kAZl3/hyrTi6HkMihxdbDM6m2Zc3swc/ZewEe1xw==}
@@ -1134,7 +1134,7 @@ packages:
       fs-extra: 10.1.0
       safe-identifier: 0.4.2
       ts-morph: 20.0.0
-      ts-node: 10.9.1(@types/node@18.17.4)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@20.8.8)(typescript@4.9.5)
     dev: false
 
   /@tpluscode/rdf-string@0.2.27(clownface@1.5.1)(safe-identifier@0.4.2)(ts-morph@20.0.0)(ts-node@10.9.1):
@@ -1229,25 +1229,25 @@ packages:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
     dependencies:
       '@types/connect': 3.4.36
-      '@types/node': 18.17.4
+      '@types/node': 20.8.8
     dev: true
 
   /@types/connect@3.4.36:
     resolution: {integrity: sha512-P63Zd/JUGq+PdrM1lv0Wv5SBYeA2+CORvbrXbngriYY0jzLUWfQMQQxOhjONEz/wlHOAxOdY7CY65rgQdTjq2w==}
     dependencies:
-      '@types/node': 18.17.4
+      '@types/node': 20.8.8
     dev: true
 
   /@types/cors@2.8.14:
     resolution: {integrity: sha512-RXHUvNWYICtbP6s18PnOCaqToK8y14DnLd75c6HfyKf228dxy7pHNOQkxPtvXKp/hINFMDjbYzsj63nnpPMSRQ==}
     dependencies:
-      '@types/node': 18.17.4
+      '@types/node': 20.8.8
     dev: true
 
   /@types/express-serve-static-core@4.17.36:
     resolution: {integrity: sha512-zbivROJ0ZqLAtMzgzIUC4oNqDG9iF0lSsAqpOD9kbs5xcIM3dTiyuHvBc7R8MtWBp3AAWGaovJa+wzWPjLYW7Q==}
     dependencies:
-      '@types/node': 18.17.4
+      '@types/node': 20.8.8
       '@types/qs': 6.9.8
       '@types/range-parser': 1.2.4
       '@types/send': 0.17.1
@@ -1269,7 +1269,7 @@ packages:
   /@types/http-link-header@1.0.3:
     resolution: {integrity: sha512-y8HkoD/vyid+5MrJ3aas0FvU3/BVBGcyG9kgxL0Zn4JwstA8CglFPnrR0RuzOjRCXwqzL5uxWC2IO7Ub0rMU2A==}
     dependencies:
-      '@types/node': 18.17.4
+      '@types/node': 20.8.8
     dev: true
 
   /@types/isomorphic-fetch@0.0.36:
@@ -1283,7 +1283,7 @@ packages:
   /@types/keyv@3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
-      '@types/node': 18.17.4
+      '@types/node': 20.8.8
     dev: true
 
   /@types/mime@1.3.2:
@@ -1302,7 +1302,7 @@ packages:
     resolution: {integrity: sha512-g/67NVSihmIoIZT3/J462NhJrmpCw+5WUkkKqpCE9YxNEWzBwKavGPP+RUmG6DIm5GrW4GPunuxLJ0Yn/GgNjQ==}
     dependencies:
       '@rdfjs/types': 1.1.0
-      '@types/node': 18.17.4
+      '@types/node': 20.8.8
     dev: true
 
   /@types/node@12.20.55:
@@ -1311,6 +1311,12 @@ packages:
 
   /@types/node@18.17.4:
     resolution: {integrity: sha512-ATL4WLgr7/W40+Sp1WnNTSKbgVn6Pvhc/2RHAdt8fl6NsQyp4oPCi2eKcGOvA494bwf1K/W6nGgZ9TwDqvpjdw==}
+    dev: true
+
+  /@types/node@20.8.8:
+    resolution: {integrity: sha512-YRsdVxq6OaLfmR9Hy816IMp33xOBjfyOgUd77ehqg96CFywxAPbDbXvAsuN2KVg2HOT8Eh6uAfU+l4WffwPVrQ==}
+    dependencies:
+      undici-types: 5.25.3
 
   /@types/normalize-package-data@2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -1348,13 +1354,13 @@ packages:
   /@types/readable-stream@2.3.15:
     resolution: {integrity: sha512-oM5JSKQCcICF1wvGgmecmHldZ48OZamtMxcGGVICOJA8o8cahXC1zEVAif8iwoc5j8etxFaRFnf095+CDsuoFQ==}
     dependencies:
-      '@types/node': 18.17.4
+      '@types/node': 20.8.8
       safe-buffer: 5.1.2
 
   /@types/responselike@1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
     dependencies:
-      '@types/node': 18.17.4
+      '@types/node': 20.8.8
     dev: true
 
   /@types/semver@6.2.3:
@@ -1369,7 +1375,7 @@ packages:
     resolution: {integrity: sha512-Cwo8LE/0rnvX7kIIa3QHCkcuF21c05Ayb0ZfxPiv0W8VRiZiNW/WuRupHKpqqGVGf7SUA44QSOUKaEd9lIrd/Q==}
     dependencies:
       '@types/mime': 1.3.2
-      '@types/node': 18.17.4
+      '@types/node': 20.8.8
     dev: true
 
   /@types/serve-static@1.15.2:
@@ -1377,7 +1383,7 @@ packages:
     dependencies:
       '@types/http-errors': 2.0.1
       '@types/mime': 3.0.1
-      '@types/node': 18.17.4
+      '@types/node': 20.8.8
     dev: true
 
   /@types/sparql-http-client@2.2.8:
@@ -5673,7 +5679,7 @@ packages:
       code-block-writer: 12.0.0
     dev: false
 
-  /ts-node@10.9.1(@types/node@18.17.4)(typescript@4.9.5):
+  /ts-node@10.9.1(@types/node@20.8.8)(typescript@4.9.5):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -5692,7 +5698,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 18.17.4
+      '@types/node': 20.8.8
       acorn: 8.10.0
       acorn-walk: 8.2.0
       arg: 4.1.3
@@ -5787,6 +5793,9 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /undici-types@5.25.3:
+    resolution: {integrity: sha512-Ga1jfYwRn7+cP9v8auvEXN1rX3sWqlayd4HP7OKk4mZWylEmu3KzXDUGrQUN6Ol7qo1gPvB2e5gX6udnyEPgdA==}
 
   /undici@5.26.3:
     resolution: {integrity: sha512-H7n2zmKEWgOllKkIUkLvFmsJQj062lSm3uA4EYApG8gLuiOM0/go9bIoC3HVaSnfg4xunowDE2i9p8drkXuvDw==}
