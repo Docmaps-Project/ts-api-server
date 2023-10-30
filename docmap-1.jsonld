@@ -1,0 +1,61 @@
+{
+  "id": "https://sciety.org/docmaps/v1/articles/10.21203/rs.3.rs-871965/v1/ncrc.docmap.json",
+  "type": "docmap",
+  "created": "2022-01-25T11:10:23.812Z",
+  "publisher": {
+    "id": "https://ncrc.jhsph.edu/",
+    "homepage": "https://ncrc.jhsph.edu/",
+    "logo": "https://sciety.org/static/groups/ncrc--62f9b0d0-8d43-4766-a52a-ce02af61bc6a.jpg",
+    "name": "NCRC",
+    "account": {
+      "id": "https://sciety.org/groups/ncrc",
+      "service": "https://sciety.org/"
+    }
+  },
+  "first-step": "_:b5",
+  "steps": {
+    "_:b5": {
+      "inputs": [
+        {
+          "doi": "10.21203/rs.3.rs-871965/v1",
+          "url": "https://doi.org/10.21203/rs.3.rs-871965/v1"
+        }
+      ],
+      "actions": [
+        {
+          "participants": [
+            {
+              "actor": {
+                "type": "person",
+                "name": "anonymous"
+              },
+              "role": "peer-reviewer"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "review-article",
+              "published": "2021-11-15T00:00:00.000Z",
+              "content": [
+                {
+                  "type": "web-page",
+                  "url": "https://sciety.org/articles/activity/10.21203/rs.3.rs-871965/v1#ncrc:671d41ca-c8cd-44a3-afd5-c2ebe40a1316"
+                },
+                {
+                  "type": "web-page",
+                  "url": "https://ncrc.jhsph.edu/research/coronaviruses-with-a-sars-cov-2-like-receptor-binding-domain-allowing-ace2-mediated-entry-into-human-cells-isolated-from-bats-of-indochinese-peninsula/"
+                },
+                {
+                  "type": "web-content",
+                  "url": "https://sciety.org/evaluations/ncrc:671d41ca-c8cd-44a3-afd5-c2ebe40a1316/content"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "assertions": []
+    }
+  },
+  "@context": "https://w3id.org/docmaps/context.jsonld"
+}
