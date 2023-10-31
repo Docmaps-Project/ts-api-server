@@ -1,3 +1,8 @@
+# ARCHIVE NOTICE
+
+**This repository has been archived as its NPM packages have all been migrated to the
+[Docmaps Typescript Monorepo](https://github.com/docmaps-project/docmaps)
+
 # ts-api-server
 
 Typescript reference implementation of Docmaps Project RFC#001 API Server Interoperability Protocol.
